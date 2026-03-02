@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ExcelKurs.ch – Excel Grundlagenkurs für Schulen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sky-50:  #f0f9ff;
+      --sky-100: #e0f2fe;
+      --sky-200: #bae6fd;
+      --sky-300: #7dd3fc;
+      --sky-400: #38bdf8;
+      --sky-500: #0ea5e9;
+      --sky-600: #0284c7;
+      --sky-700: #0369a1;
+
+      --stone-50:  #fafaf9;
+      --stone-100: #f5f5f4;
+      --stone-200: #e7e5e4;
+      --stone-300: #d6d3d1;
+      --stone-400: #a8a29e;
+      --stone-500: #78716c;
+      --stone-600: #57534e;
+      --stone-700: #44403c;
+      --stone-800: #292524;
+      --stone-900: #1c1917;
+
+      --green-100: #dcfce7;
+      --green-600: #16a34a;
+      --amber-100: #fef3c7;
+      --amber-600: #d97706;
+
+      --font-sans: 'DM Sans', system-ui, sans-serif;
+      --font-serif: 'Instrument Serif', Georgia, serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-sans); background: #fff; color: var(--stone-800); line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ── Utility ── */
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--sky-50); color: var(--sky-700);
+      font-size: 12px; font-weight: 600; padding: 4px 12px;
+      border-radius: 20px; letter-spacing: 0.03em;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-sans); font-weight: 600; font-size: 14px;
+      padding: 11px 22px; border-radius: 10px; border: none; cursor: pointer;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--sky-500); color: #fff; box-shadow: 0 2px 8px rgba(14,165,233,0.3); }
+    .btn-primary:hover { background: var(--sky-600); }
+    .btn-secondary { background: #fff; color: var(--sky-600); border: 1.5px solid var(--sky-200); }
+    .btn-secondary:hover { background: var(--sky-50); }
+    .btn-ghost { background: transparent; color: var(--stone-600); border: 1.5px solid var(--stone-200); }
+    .btn-ghost:hover { background: var(--stone-50); color: var(--stone-800); }
+    .btn-lg { font-size: 15px; padding: 13px 28px; border-radius: 12px; }
+    .btn-sm { font-size: 12px; padding: 7px 14px; border-radius: 8px; }
+
+    /* ══════════════════════════════════════
+       HEADER / NAV
+    ══════════════════════════════════════ */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--stone-100);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; max-width: 1120px; margin: 0 auto; padding: 0 24px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-logo-icon {
+      width: 34px; height: 34px;
+      background: var(--sky-500); border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(14,165,233,0.35);
+    }
+    .nav-logo-icon svg { color: #fff; }
+    .nav-logo-text { font-size: 16px; font-weight: 700; color: var(--stone-900); letter-spacing: -0.01em; }
+    .nav-logo-text span { color: var(--sky-500); }
+    .nav-links {
+      display: flex; align-items: center; gap: 4px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: var(--stone-500);
+      padding: 6px 12px; border-radius: 8px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links a:hover { color: var(--sky-600); background: var(--sky-50); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+    }
+
+    /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+    .hero {
+      padding: 96px 24px 80px;
+      max-width: 1120px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center;
+    }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; gap: 48px; padding: 64px 24px 56px; }
+      .hero-visual { order: -1; }
+    }
+    .hero-eyebrow { margin-bottom: 20px; }
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(32px, 4.5vw, 52px);
+      color: var(--stone-900);
+      line-height: 1.13;
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
+    }
+    .hero h1 em { font-style: italic; color: var(--sky-500); }
+    .hero-sub {
+      font-size: 16px; color: var(--stone-500); line-height: 1.7;
+      max-width: 440px; margin-bottom: 36px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+
+    /* Hero Visual — Lernplattform Mockup */
+    .hero-visual {
+      position: relative;
+    }
+    .hero-visual-bg {
+      position: absolute; inset: -20px;
+      background: radial-gradient(ellipse at 60% 40%, rgba(14,165,233,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-card {
+      background: #fff;
+      border: 1px solid var(--stone-100);
+      border-radius: 18px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.04);
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-card-header {
+      background: var(--stone-900);
+      padding: 12px 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .hero-card-dots { display: flex; gap: 5px; }
+    .hero-card-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .hero-card-title {
+      flex: 1; text-align: center;
+      font-size: 11px; color: var(--stone-400); font-weight: 500;
+    }
+    .hero-card-body { padding: 20px; }
+
+    /* Module progress inside hero card */
+    .hero-progress-label {
+      font-size: 11px; font-weight: 600; color: var(--stone-400);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;
+    }
+    .hero-module-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid var(--stone-100);
+    }
+    .hero-module-row:last-child { border-bottom: none; }
+    .hero-module-num {
+      width: 26px; height: 26px; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; flex-shrink: 0;
+    }
+    .hero-module-num.done { background: var(--green-100); color: var(--green-600); }
+    .hero-module-num.active { background: var(--sky-100); color: var(--sky-600); }
+    .hero-module-num.todo { background: var(--stone-100); color: var(--stone-400); }
+    .hero-module-name { flex: 1; font-size: 12px; font-weight: 500; color: var(--stone-700); }
+    .hero-module-bar { width: 64px; height: 5px; background: var(--stone-100); border-radius: 3px; overflow: hidden; }
+    .hero-module-bar-fill { height: 100%; border-radius: 3px; }
+    .hero-module-pct { font-size: 11px; color: var(--stone-400); width: 28px; text-align: right; }
+
+    /* Floating badge */
+    .hero-badge {
+      position: absolute; bottom: -16px; right: 24px;
+      background: #fff; border: 1px solid var(--stone-100);
+      border-radius: 12px; padding: 10px 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      display: flex; align-items: center; gap: 10px;
+      font-size: 12px;
+    }
+    .hero-badge-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: var(--sky-100); color: var(--sky-600);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .hero-badge strong { font-weight: 700; color: var(--stone-900); font-size: 15px; display: block; line-height: 1.2; }
+    .hero-badge span { color: var(--stone-400); font-size: 11px; }
+
+
+    /* ══════════════════════════════════════
+       FEATURES (3-UP)
+    ══════════════════════════════════════ */
+    .section { padding: 96px 24px; }
+    .section-sm { padding: 72px 24px; }
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-header .tag { margin-bottom: 16px; }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(26px, 3.5vw, 40px);
+      color: var(--stone-900); line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .section-title em { font-style: italic; color: var(--sky-500); }
+    .section-sub { font-size: 15px; color: var(--stone-500); max-width: 480px; margin: 0 auto; line-height: 1.7; }
+
+    .features-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; max-width: 1120px; margin: 0 auto;
+    }
+    @media (max-width: 900px) { .features-grid { grid-template-columns: 1fr; max-width: 480px; } }
+    @media (min-width: 600px) and (max-width: 900px) { .features-grid { grid-template-columns: repeat(2, 1fr); max-width: 100%; } }
+
+    .feature-card {
+      background: var(--stone-50); border: 1px solid var(--stone-100);
+      border-radius: 16px; padding: 28px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .feature-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px; flex-shrink: 0;
+    }
+    .feature-icon-sky { background: var(--sky-100); color: var(--sky-600); }
+    .feature-icon-green { background: var(--green-100); color: var(--green-600); }
+    .feature-icon-amber { background: var(--amber-100); color: var(--amber-600); }
+    .feature-card h3 { font-size: 16px; font-weight: 700; color: var(--stone-900); margin-bottom: 8px; }
+    .feature-card p { font-size: 14px; color: var(--stone-500); line-height: 1.65; }
+
+    /* ══════════════════════════════════════
+       TWO-AUDIENCE SPLIT
+    ══════════════════════════════════════ */
+    .audience-section {
+      padding: 0 24px 96px;
+    }
+    .audience-grid {
+      max-width: 1120px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 768px) { .audience-grid { grid-template-columns: 1fr; } }
+
+    .audience-card {
+      border-radius: 20px; padding: 40px;
+      position: relative; overflow: hidden;
+    }
+    .audience-card-students { background: var(--stone-900); }
+    .audience-card-teachers { background: var(--sky-50); border: 1px solid var(--sky-100); }
+
+    .audience-card::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 200px; height: 200px; border-radius: 50%;
+      pointer-events: none;
+    }
+    .audience-card-students::before { background: radial-gradient(circle, rgba(14,165,233,0.2) 0%, transparent 70%); }
+    .audience-card-teachers::before { background: radial-gradient(circle, rgba(14,165,233,0.15) 0%, transparent 70%); }
+
+    .audience-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    .audience-card-students .audience-label { color: var(--sky-400); }
+    .audience-card-teachers .audience-label { color: var(--sky-600); }
+
+    .audience-card h3 {
+      font-family: var(--font-serif);
+      font-size: clamp(20px, 2.5vw, 28px);
+      line-height: 1.2; margin-bottom: 14px;
+    }
+    .audience-card-students h3 { color: #fff; }
+    .audience-card-teachers h3 { color: var(--stone-900); }
+
+    .audience-card p { font-size: 14px; line-height: 1.7; margin-bottom: 28px; }
+    .audience-card-students p { color: var(--stone-400); }
+    .audience-card-teachers p { color: var(--stone-500); }
+
+    .audience-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+    .audience-feature {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; font-weight: 500;
+    }
+    .audience-card-students .audience-feature { color: var(--stone-300); }
+    .audience-card-teachers .audience-feature { color: var(--stone-600); }
+    .audience-check {
+      width: 20px; height: 20px; border-radius: 6px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .audience-card-students .audience-check { background: rgba(14,165,233,0.2); color: var(--sky-400); }
+    .audience-card-teachers .audience-check { background: var(--sky-100); color: var(--sky-600); }
+
+    /* Mini-Mockup inside audience card */
+    .mini-mockup {
+      background: rgba(255,255,255,0.06); border-radius: 12px; padding: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .mini-mockup-teachers { background: #fff; border: 1px solid var(--stone-100); }
+    .mini-mockup-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+    .audience-card-students .mini-mockup-label { color: var(--stone-500); }
+    .audience-card-teachers .mini-mockup-label { color: var(--stone-400); }
+
+    .mm-progress-row {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+    }
+    .mm-progress-row:last-child { margin-bottom: 0; }
+    .mm-name { font-size: 11px; width: 80px; flex-shrink: 0; }
+    .audience-card-students .mm-name { color: var(--stone-400); }
+    .audience-card-teachers .mm-name { color: var(--stone-600); }
+    .mm-bar { flex: 1; height: 5px; border-radius: 3px; overflow: hidden; }
+    .audience-card-students .mm-bar { background: rgba(255,255,255,0.08); }
+    .audience-card-teachers .mm-bar { background: var(--stone-100); }
+    .mm-bar-fill { height: 100%; border-radius: 3px; background: var(--sky-400); }
+    .audience-card-teachers .mm-bar-fill { background: var(--sky-500); }
+    .mm-pct { font-size: 10px; font-weight: 700; width: 26px; text-align: right; }
+    .audience-card-students .mm-pct { color: var(--stone-400); }
+    .audience-card-teachers .mm-pct { color: var(--stone-500); }
+
+    /* ══════════════════════════════════════
+       MODULE ÜBERSICHT
+    ══════════════════════════════════════ */
+    .modules-section {
+      background: var(--stone-50);
+      padding: 96px 24px;
+    }
+    .modules-grid {
+      max-width: 1120px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 900px) { .modules-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 500px) { .modules-grid { grid-template-columns: 1fr; } }
+
+    .module-card {
+      background: #fff; border: 1px solid var(--stone-200);
+      border-radius: 14px; padding: 22px;
+      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+      cursor: default;
+    }
+    .module-card:hover {
+      box-shadow: 0 6px 24px rgba(14,165,233,0.12);
+      border-color: var(--sky-200);
+      transform: translateY(-2px);
+    }
+    .module-card.featured {
+      background: var(--sky-500); border-color: var(--sky-500);
+      grid-column: span 2;
+    }
+    @media (max-width: 500px) { .module-card.featured { grid-column: span 1; } }
+
+    .module-num {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .module-card:not(.featured) .module-num { color: var(--sky-500); }
+    .module-card.featured .module-num { color: rgba(255,255,255,0.65); }
+
+    .module-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+    .module-card:not(.featured) h4 { color: var(--stone-900); }
+    .module-card.featured h4 { color: #fff; font-size: 18px; }
+
+    .module-card p { font-size: 13px; line-height: 1.6; }
+    .module-card:not(.featured) p { color: var(--stone-500); }
+    .module-card.featured p { color: rgba(255,255,255,0.75); }
+
+    .module-topics { margin-top: 12px; display: flex; flex-direction: column; gap: 4px; }
+    .module-topic {
+      font-size: 12px; display: flex; align-items: flex-start; gap: 6px;
+    }
+    .module-card:not(.featured) .module-topic { color: var(--stone-500); }
+    .module-card.featured .module-topic { color: rgba(255,255,255,0.7); }
+    .module-topic::before { content: '·'; flex-shrink: 0; margin-top: 1px; }
+
+    /* ══════════════════════════════════════
+       LERNPLATTFORM PREVIEW
+    ══════════════════════════════════════ */
+    .platform-section {
+      padding: 96px 24px;
+    }
+    .platform-inner {
+      max-width: 1120px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    @media (max-width: 900px) {
+      .platform-inner { grid-template-columns: 1fr; gap: 48px; }
+    }
+    .platform-text .tag { margin-bottom: 14px; }
+    .platform-text h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(24px, 3vw, 36px);
+      color: var(--stone-900); line-height: 1.2; margin-bottom: 14px;
+    }
+    .platform-text h2 em { font-style: italic; color: var(--sky-500); }
+    .platform-text p { font-size: 15px; color: var(--stone-500); line-height: 1.7; margin-bottom: 28px; }
+
+    .platform-checklist { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+    .platform-check-item {
+      display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--stone-700);
+    }
+    .platform-check-icon {
+      width: 20px; height: 20px; border-radius: 6px;
+      background: var(--sky-100); color: var(--sky-600);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* Plattform-Mockup */
+    .platform-mockup {
+      background: #fff; border: 1px solid var(--stone-100);
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .pm-topbar {
+      background: var(--stone-800); padding: 10px 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .pm-dot { width: 9px; height: 9px; border-radius: 50%; }
+    .pm-url {
+      flex: 1; background: rgba(255,255,255,0.1); border-radius: 5px;
+      padding: 4px 10px; font-size: 10px; color: var(--stone-400);
+      text-align: center; margin: 0 8px;
+    }
+    .pm-body { display: grid; grid-template-columns: 160px 1fr; min-height: 320px; }
+    .pm-sidebar {
+      background: var(--stone-50); border-right: 1px solid var(--stone-100);
+      padding: 14px 10px;
+    }
+    .pm-sidebar-title {
+      font-size: 10px; font-weight: 700; color: var(--stone-400);
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0 6px; margin-bottom: 8px;
+    }
+    .pm-nav-item {
+      display: flex; align-items: center; gap: 7px;
+      padding: 6px 8px; border-radius: 7px;
+      font-size: 11px; font-weight: 500; color: var(--stone-500);
+      margin-bottom: 2px; cursor: default;
+    }
+    .pm-nav-item.active {
+      background: var(--sky-100); color: var(--sky-700);
+    }
+    .pm-nav-dot {
+      width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+    }
+    .pm-content { padding: 18px 20px; }
+    .pm-content-title { font-size: 13px; font-weight: 700; color: var(--stone-800); margin-bottom: 4px; }
+    .pm-content-sub { font-size: 11px; color: var(--stone-400); margin-bottom: 16px; }
+
+    /* Interactive exercise sim */
+    .pm-exercise {
+      background: var(--stone-50); border: 1px solid var(--stone-200);
+      border-radius: 10px; padding: 14px; margin-bottom: 14px;
+    }
+    .pm-exercise-label { font-size: 10px; font-weight: 700; color: var(--sky-600); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .pm-exercise-q { font-size: 12px; color: var(--stone-700); margin-bottom: 10px; line-height: 1.5; }
+    .pm-exercise-options { display: flex; flex-direction: column; gap: 5px; }
+    .pm-option {
+      display: flex; align-items: center; gap: 7px;
+      padding: 6px 10px; border-radius: 7px; border: 1px solid var(--stone-200);
+      background: #fff; font-size: 11px; color: var(--stone-600);
+      cursor: default;
+    }
+    .pm-option.correct { border-color: #86efac; background: #f0fdf4; color: #166534; }
+    .pm-option-circle {
+      width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid currentColor;
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 8px;
+    }
+
+    /* Progress bar in mockup */
+    .pm-progress-wrap { margin-top: 6px; }
+    .pm-progress-top { display: flex; justify-content: space-between; font-size: 10px; color: var(--stone-400); margin-bottom: 5px; }
+    .pm-progress-bar { height: 5px; background: var(--stone-200); border-radius: 3px; overflow: hidden; }
+    .pm-progress-fill { height: 100%; background: var(--sky-400); border-radius: 3px; }
+
+
+    /* ══════════════════════════════════════
+       CTA SECTION
+    ══════════════════════════════════════ */
+    .cta-section { padding: 96px 24px; }
+    .cta-inner {
+      max-width: 1120px; margin: 0 auto;
+      background: var(--stone-900); border-radius: 24px;
+      padding: 72px 48px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-inner::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(14,165,233,0.2) 0%, transparent 60%);
+    }
+    .cta-inner .tag { background: rgba(14,165,233,0.15); color: var(--sky-400); border: 1px solid rgba(14,165,233,0.2); margin-bottom: 20px; }
+    .cta-inner h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 4vw, 44px);
+      color: #fff; line-height: 1.15; margin-bottom: 16px; position: relative;
+    }
+    .cta-inner h2 em { font-style: italic; color: var(--sky-400); }
+    .cta-inner p { font-size: 15px; color: var(--stone-400); margin-bottom: 36px; max-width: 440px; margin-left: auto; margin-right: auto; line-height: 1.7; position: relative; }
+    .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; }
+    .btn-white { background: #fff; color: var(--stone-900); font-weight: 700; }
+    .btn-white:hover { background: var(--stone-100); }
+    .btn-outline-white {
+      background: transparent; border: 1.5px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.75); font-family: var(--font-sans); font-weight: 600;
+      font-size: 14px; padding: 11px 22px; border-radius: 10px; cursor: pointer;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-outline-white:hover { border-color: rgba(255,255,255,0.45); color: #fff; background: rgba(255,255,255,0.05); }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    footer {
+      border-top: 1px solid var(--stone-100);
+      padding: 48px 24px;
+    }
+    .footer-inner {
+      max-width: 1120px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.5fr repeat(3, 1fr);
+      gap: 40px;
+    }
+    @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .footer-inner { grid-template-columns: 1fr; } }
+
+    .footer-brand { display: flex; flex-direction: column; gap: 12px; }
+    .footer-logo { display: flex; align-items: center; gap: 8px; }
+    .footer-logo-icon {
+      width: 28px; height: 28px; background: var(--sky-500); border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .footer-logo-text { font-size: 15px; font-weight: 700; color: var(--stone-900); }
+    .footer-logo-text span { color: var(--sky-500); }
+    .footer-tagline { font-size: 13px; color: var(--stone-400); line-height: 1.6; max-width: 220px; }
+
+    .footer-col h5 { font-size: 13px; font-weight: 700; color: var(--stone-700); margin-bottom: 14px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col li a { font-size: 13px; color: var(--stone-400); transition: color 0.15s; }
+    .footer-col li a:hover { color: var(--sky-500); }
+
+    .footer-bottom {
+      max-width: 1120px; margin: 32px auto 0;
+      padding-top: 24px; border-top: 1px solid var(--stone-100);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px; color: var(--stone-400); flex-wrap: wrap; gap: 8px;
+    }
+
+    /* ══════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.5s ease forwards; }
+    .fade-up-1 { animation-delay: 0.05s; opacity: 0; }
+    .fade-up-2 { animation-delay: 0.15s; opacity: 0; }
+    .fade-up-3 { animation-delay: 0.25s; opacity: 0; }
+    .fade-up-4 { animation-delay: 0.35s; opacity: 0; }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       NAVIGATION
+  ══════════════════════════════════════ -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-icon">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18M10 3v18"/>
+          </svg>
+        </div>
+        <span class="nav-logo-text">Excel<span>Kurs</span>.ch</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#kurs">Kursinhalt</a></li>
+        <li><a href="#plattform">Lernplattform</a></li>
+        <li><a href="#lehrpersonen">Für Lehrpersonen</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="btn btn-ghost btn-sm">Einloggen</button>
+        <button class="btn btn-primary btn-sm">Kurs starten</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+  <section style="overflow: hidden;">
+    <div class="hero">
+      <!-- Left: Text -->
+      <div>
+        <div class="hero-eyebrow fade-up fade-up-1">
+          <span class="tag">
+            <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            Für Schulen & Berufsschulen in der Schweiz
+          </span>
+        </div>
+        <h1 class="fade-up fade-up-2">Excel lernen —<br /><em>richtig einfach</em>,<br />nachweisbar effektiv.</h1>
+        <p class="hero-sub fade-up fade-up-3">Ein strukturierter Grundlagenkurs mit interaktiver Lernplattform. Schülerinnen und Schüler lernen im eigenen Tempo — Lehrpersonen behalten den Überblick über die ganze Klasse.</p>
+        <div class="hero-actions fade-up fade-up-4">
+          <button class="btn btn-primary btn-lg">
+            Kurs entdecken
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </button>
+          <button class="btn btn-ghost btn-lg">Demo ansehen</button>
+        </div>
+      </div>
+
+      <!-- Right: Visual Mockup -->
+      <div class="hero-visual fade-up fade-up-3">
+        <div class="hero-visual-bg"></div>
+        <div class="hero-card">
+          <div class="hero-card-header">
+            <div class="hero-card-dots">
+              <div class="hero-card-dot" style="background:#ef4444;"></div>
+              <div class="hero-card-dot" style="background:#f59e0b;"></div>
+              <div class="hero-card-dot" style="background:#22c55e;"></div>
+            </div>
+            <div class="hero-card-title">excelkurs.ch — Mein Fortschritt</div>
+          </div>
+          <div class="hero-card-body">
+            <div class="hero-progress-label">Dein Kursfortschritt</div>
+            <div class="hero-module-row">
+              <div class="hero-module-num done">✓</div>
+              <div class="hero-module-name">Zellen & Dateneingabe</div>
+              <div class="hero-module-bar"><div class="hero-module-bar-fill" style="width:100%; background:#22c55e;"></div></div>
+              <div class="hero-module-pct">100%</div>
+            </div>
+            <div class="hero-module-row">
+              <div class="hero-module-num done">✓</div>
+              <div class="hero-module-name">Formatierung</div>
+              <div class="hero-module-bar"><div class="hero-module-bar-fill" style="width:100%; background:#22c55e;"></div></div>
+              <div class="hero-module-pct">100%</div>
+            </div>
+            <div class="hero-module-row">
+              <div class="hero-module-num active">3</div>
+              <div class="hero-module-name">Formeln & Zellbezüge</div>
+              <div class="hero-module-bar"><div class="hero-module-bar-fill" style="width:60%; background:var(--sky-400);"></div></div>
+              <div class="hero-module-pct">60%</div>
+            </div>
+            <div class="hero-module-row">
+              <div class="hero-module-num todo">4</div>
+              <div class="hero-module-name">Wichtige Funktionen</div>
+              <div class="hero-module-bar"><div class="hero-module-bar-fill" style="width:0%;"></div></div>
+              <div class="hero-module-pct">—</div>
+            </div>
+            <div class="hero-module-row">
+              <div class="hero-module-num todo">5</div>
+              <div class="hero-module-name">Sortieren & Filtern</div>
+              <div class="hero-module-bar"><div class="hero-module-bar-fill" style="width:0%;"></div></div>
+              <div class="hero-module-pct">—</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-badge">
+          <div class="hero-badge-icon">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <div>
+            <strong>Klasse 3b</strong>
+            <span>Ø Fortschritt: 68%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FEATURES
+  ══════════════════════════════════════ -->
+  <section class="section" id="plattform">
+    <div class="container">
+      <div class="section-header">
+        <div class="tag" style="margin-bottom:16px;">Warum ExcelKurs.ch</div>
+        <h2 class="section-title">Lernen, das <em>wirklich funktioniert</em></h2>
+        <p class="section-sub">Kein PDF, kein Frontalunterricht. Ein strukturierter, interaktiver Kurs — zugeschnitten auf den Schweizer Lehrplan.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-sky">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+          </div>
+          <h3>Interaktive Übungen</h3>
+          <p>Keine passiven Videos. Schülerinnen und Schüler üben direkt in der Plattform — mit sofortigem Feedback und automatischer Auswertung.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-green">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <h3>Fortschritt-Tracking</h3>
+          <p>Jede Schülerin, jeder Schüler sieht seinen eigenen Fortschritt. Lehrpersonen erhalten einen Überblick über die gesamte Klasse — in Echtzeit.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon feature-icon-amber">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          </div>
+          <h3>8 strukturierte Module</h3>
+          <p>Von den Grundlagen bis zum Abschlussprojekt — ein klarer, aufbauender Lernpfad, der mit dem Schweizer Lehrplan abgestimmt ist.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       ZWEI ZIELGRUPPEN
+  ══════════════════════════════════════ -->
+  <section class="audience-section" id="lehrpersonen">
+    <div style="max-width:1120px; margin: 0 auto;">
+      <div class="section-header" style="margin-bottom:36px;">
+        <h2 class="section-title">Eine Plattform —<br /><em>zwei Perspektiven</em></h2>
+        <p class="section-sub">Schülerinnen, Schüler und Lehrpersonen haben jeweils ihre eigene Ansicht — optimal für ihren Bedarf zugeschnitten.</p>
+      </div>
+      <div class="audience-grid">
+
+        <!-- Students card -->
+        <div class="audience-card audience-card-students">
+          <div class="audience-label">Für Schülerinnen & Schüler</div>
+          <h3>Lernen, das<br />Spass macht</h3>
+          <p>Ein klarer Lernpfad, interaktive Übungen mit sofortigem Feedback und ein sichtbarer Fortschritt — das motiviert und hält bei der Sache.</p>
+          <div class="audience-features">
+            <div class="audience-feature">
+              <div class="audience-check"><svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+              Interaktive Aufgaben mit Echtzeit-Feedback
+            </div>
+            <div class="audience-feature">
+              <div class="audience-check"><svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+              Persönlicher Fortschritts-Tracker
+            </div>
+            <div class="audience-feature">
+              <div class="audience-check"><svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+              Auf jedem Gerät — PC, Tablet oder Handy
+            </div>
+            <div class="audience-feature">
+              <div class="audience-check"><svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+              Abschlussprojekt mit echtem Ergebnis
+            </div>
+          </div>
+          <div class="mini-mockup">
+            <div class="mini-mockup-label">Modul 3 — Zellbezüge</div>
+            <div class="mm-progress-row">
+              <span class="mm-name">Lektion 1</span>
+              <div class="mm-bar"><div class="mm-bar-fill" style="width:100%;"></div></div>
+              <span class="mm-pct">100%</span>
+            </div>
+            <div class="mm-progress-row">
+              <span class="mm-name">Lektion 2</span>
+              <div class="mm-bar"><div class="mm-bar-fill" style="width:100%;"></div></div>
+              <span class="mm-pct">100%</span>
+            </div>
+            <div class="mm-progress-row">
+              <span class="mm-name">Lektion 3</span>
+              <div class="mm-bar"><div class="mm-bar-fill" style="width:60%;"></div></div>
+              <span class="mm-pct">60%</span>
+            </div>
+            <div class="mm-progress-row">
+              <span class="mm-name">Quiz</span>
+              <div class="mm-bar"><div class="mm-bar-fill" style="width:0%;"></div></div>
+              <span class="mm-pct">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teachers card -->
+        <div class="audience-card audience-card-teachers">
+          <div class="audience-label">Für Lehrpersonen</div>
+          <h3>Die Klasse<br />immer im Blick</h3>
+          <p>Kein manuelles Einsammeln von Aufgaben. Sehen Sie auf einen Blick, wer weit ist, wer Unterstützung braucht — und greifen Sie gezielt ein.</p>
+          <div class="audience-features">
+            <div class="audience-feature">
+              <div class="audience-check"><svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+              Klassenübersicht mit Fortschritt pro Schülerin
+            </div>
+            <div class="audience-feature">
+              <div class="audience-check"><svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+              Automatische Auswertung der Übungsresultate
+            </div>
+            <div class="audience-feature">
+              <div class="audience-check"><svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+              Klassen verwalten & Gruppen erstellen
+            </div>
+            <div class="audience-feature">
+              <div class="audience-check"><svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+              Fortschritts-Export als PDF oder Excel
+            </div>
+          </div>
+          <div class="mini-mockup mini-mockup-teachers">
+            <div class="mini-mockup-label">Klasse 3b — Modul 3 Fortschritt</div>
+            <div class="mm-progress-row">
+              <span class="mm-name" style="color:var(--stone-600);">Mia S.</span>
+              <div class="mm-bar" style="background:var(--stone-100);"><div class="mm-bar-fill" style="width:100%; background:var(--sky-500);"></div></div>
+              <span class="mm-pct" style="color:var(--stone-600);">100%</span>
+            </div>
+            <div class="mm-progress-row">
+              <span class="mm-name" style="color:var(--stone-600);">Lukas M.</span>
+              <div class="mm-bar" style="background:var(--stone-100);"><div class="mm-bar-fill" style="width:85%; background:var(--sky-500);"></div></div>
+              <span class="mm-pct" style="color:var(--stone-600);">85%</span>
+            </div>
+            <div class="mm-progress-row">
+              <span class="mm-name" style="color:var(--stone-600);">Jana K.</span>
+              <div class="mm-bar" style="background:var(--stone-100);"><div class="mm-bar-fill" style="width:60%; background:var(--sky-500);"></div></div>
+              <span class="mm-pct" style="color:var(--stone-600);">60%</span>
+            </div>
+            <div class="mm-progress-row">
+              <span class="mm-name" style="color:var(--stone-600);">Tim R.</span>
+              <div class="mm-bar" style="background:var(--stone-100);"><div class="mm-bar-fill" style="width:30%; background:#f59e0b;"></div></div>
+              <span class="mm-pct" style="color:var(--stone-600);">30%</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       MODULE ÜBERSICHT
+  ══════════════════════════════════════ -->
+  <section class="modules-section" id="kurs">
+    <div style="max-width:1120px; margin:0 auto;">
+      <div class="section-header">
+        <div class="tag" style="margin-bottom:16px;">8 Module · ca. 12 Stunden</div>
+        <h2 class="section-title">Von null bis <em>sicher</em> in Excel</h2>
+        <p class="section-sub">Ein aufbauender Lernpfad — von den ersten Klicks bis zum fertigen Abschlussprojekt.</p>
+      </div>
+      <div class="modules-grid">
+        <div class="module-card">
+          <div class="module-num">Modul 1</div>
+          <h4>Zellen & Dateneingabe</h4>
+          <div class="module-topics">
+            <div class="module-topic">Zeilen, Spalten, Zellen</div>
+            <div class="module-topic">Text, Zahlen, Datum eingeben</div>
+            <div class="module-topic">Erste Formeln in Zellen</div>
+          </div>
+        </div>
+        <div class="module-card">
+          <div class="module-num">Modul 2</div>
+          <h4>Formatierung</h4>
+          <div class="module-topics">
+            <div class="module-topic">Schrift, Farben, Rahmen</div>
+            <div class="module-topic">Zahlenformate: Währung, %</div>
+            <div class="module-topic">Bedingte Formatierung</div>
+          </div>
+        </div>
+        <div class="module-card">
+          <div class="module-num">Modul 3</div>
+          <h4>Formeln & Zellbezüge</h4>
+          <div class="module-topics">
+            <div class="module-topic">Relative Bezüge</div>
+            <div class="module-topic">Absolute Bezüge mit $</div>
+            <div class="module-topic">Formeln kopieren</div>
+          </div>
+        </div>
+        <div class="module-card">
+          <div class="module-num">Modul 4</div>
+          <h4>Wichtige Funktionen</h4>
+          <div class="module-topics">
+            <div class="module-topic">SUMME, MITTELWERT</div>
+            <div class="module-topic">MAX, MIN, ANZAHL</div>
+            <div class="module-topic">Funktionsassistent</div>
+          </div>
+        </div>
+        <div class="module-card">
+          <div class="module-num">Modul 5</div>
+          <h4>Sortieren & Filtern</h4>
+          <div class="module-topics">
+            <div class="module-topic">Daten als Tabelle</div>
+            <div class="module-topic">Sortieren & Filtern</div>
+            <div class="module-topic">Grosse Datensätze auswerten</div>
+          </div>
+        </div>
+        <div class="module-card">
+          <div class="module-num">Modul 6</div>
+          <h4>Diagramme</h4>
+          <div class="module-topics">
+            <div class="module-topic">Säulen-, Linien-, Tortendiagramm</div>
+            <div class="module-topic">Diagramme erstellen</div>
+            <div class="module-topic">Beschriften & anpassen</div>
+          </div>
+        </div>
+        <div class="module-card">
+          <div class="module-num">Modul 7</div>
+          <h4>Drucken & Ausgabe</h4>
+          <div class="module-topics">
+            <div class="module-topic">Seitenlayout & Druckbereich</div>
+            <div class="module-topic">Kopf- & Fusszeilen</div>
+            <div class="module-topic">Export als PDF</div>
+          </div>
+        </div>
+        <div class="module-card featured">
+          <div class="module-num">Modul 8 — Abschlussprojekt</div>
+          <h4>Monatsauswertung<br />Eiscremestand</h4>
+          <p>Alle Kursthemen in einer praxisnahen Aufgabe: vollständige Auswertung von der Dateneingabe bis zum fertigen PDF-Bericht.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       LERNPLATTFORM PREVIEW
+  ══════════════════════════════════════ -->
+  <section class="platform-section">
+    <div class="platform-inner">
+      <div class="platform-text">
+        <div class="tag">Die Lernplattform</div>
+        <h2 style="margin-top:14px;">Interaktiv üben —<br /><em>sofort Feedback</em> erhalten</h2>
+        <p>Keine Screenshots, keine PDFs zum Ausdrucken. Schülerinnen und Schüler arbeiten direkt in der Plattform — mit Übungen, die wirklich prüfen, ob man verstanden hat.</p>
+        <div class="platform-checklist">
+          <div class="platform-check-item">
+            <div class="platform-check-icon">
+              <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            Multiple-Choice, Lückentext und interaktive Tabellenaufgaben
+          </div>
+          <div class="platform-check-item">
+            <div class="platform-check-icon">
+              <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            Sofortiges Feedback mit Erklärung bei falschen Antworten
+          </div>
+          <div class="platform-check-item">
+            <div class="platform-check-icon">
+              <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            Fortschritt wird automatisch gespeichert
+          </div>
+          <div class="platform-check-item">
+            <div class="platform-check-icon">
+              <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            Ergebnisse sehen Lehrpersonen in der Klassenübersicht
+          </div>
+        </div>
+        <button class="btn btn-primary">Plattform-Demo starten</button>
+      </div>
+
+      <!-- Browser Mockup -->
+      <div class="platform-mockup">
+        <div class="pm-topbar">
+          <div style="display:flex;gap:5px;">
+            <div class="pm-dot" style="background:#ef4444;"></div>
+            <div class="pm-dot" style="background:#f59e0b;"></div>
+            <div class="pm-dot" style="background:#22c55e;"></div>
+          </div>
+          <div class="pm-url">excelkurs.ch/lernen/modul-3</div>
+        </div>
+        <div class="pm-body">
+          <div class="pm-sidebar">
+            <div class="pm-sidebar-title">Module</div>
+            <div class="pm-nav-item">
+              <div class="pm-nav-dot" style="background:#22c55e;"></div>Zellen
+            </div>
+            <div class="pm-nav-item">
+              <div class="pm-nav-dot" style="background:#22c55e;"></div>Formatierung
+            </div>
+            <div class="pm-nav-item active">
+              <div class="pm-nav-dot" style="background:var(--sky-400);"></div>Zellbezüge
+            </div>
+            <div class="pm-nav-item">
+              <div class="pm-nav-dot" style="background:var(--stone-300);"></div>Funktionen
+            </div>
+            <div class="pm-nav-item">
+              <div class="pm-nav-dot" style="background:var(--stone-300);"></div>Sortieren
+            </div>
+            <div class="pm-nav-item">
+              <div class="pm-nav-dot" style="background:var(--stone-300);"></div>Diagramme
+            </div>
+            <div class="pm-nav-item">
+              <div class="pm-nav-dot" style="background:var(--stone-300);"></div>Drucken
+            </div>
+            <div class="pm-nav-item">
+              <div class="pm-nav-dot" style="background:var(--stone-300);"></div>Abschlussprojekt
+            </div>
+          </div>
+          <div class="pm-content">
+            <div class="pm-content-title">Modul 3 · Lektion 3: Absolute Bezüge</div>
+            <div class="pm-content-sub">Übung 2 von 3 · 60% abgeschlossen</div>
+
+            <div class="pm-exercise">
+              <div class="pm-exercise-label">Aufgabe</div>
+              <div class="pm-exercise-q">Welche Formel in B3 bleibt beim Kopieren korrekt, wenn in A1 der Steuersatz steht?</div>
+              <div class="pm-exercise-options">
+                <div class="pm-option">
+                  <div class="pm-option-circle"></div>
+                  =B2*A1
+                </div>
+                <div class="pm-option correct">
+                  <div class="pm-option-circle">✓</div>
+                  =B2*$A$1
+                </div>
+                <div class="pm-option">
+                  <div class="pm-option-circle"></div>
+                  =B2*A$1
+                </div>
+              </div>
+            </div>
+
+            <div class="pm-progress-wrap">
+              <div class="pm-progress-top">
+                <span>Modul-Fortschritt</span>
+                <span>60%</span>
+              </div>
+              <div class="pm-progress-bar">
+                <div class="pm-progress-fill" style="width:60%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       CTA
+  ══════════════════════════════════════ -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <div class="tag">Jetzt starten</div>
+      <h2>Excel-Kompetenz,<br />die <em>bleibt</em>.</h2>
+      <p>Starten Sie noch heute mit einer kostenlosen Testklasse — kein Kreditkarte, kein Risiko. Einfach anmelden und loslegen.</p>
+      <div class="cta-actions">
+        <button class="btn btn-white btn-lg">Kostenlos testen</button>
+        <button class="btn-outline-white" style="font-size:15px; padding:13px 28px; border-radius:12px;">Beratungsgespräch buchen</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-icon">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18M10 3v18"/></svg>
+          </div>
+          <span class="footer-logo-text">Excel<span>Kurs</span>.ch</span>
+        </div>
+        <p class="footer-tagline">Der Excel-Grundlagenkurs für Schulen und Berufsschulen in der Schweiz.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Kurs</h5>
+        <ul>
+          <li><a href="#">Alle Module</a></li>
+          <li><a href="#">Abschlussprojekt</a></li>
+          <li><a href="#">Demo ansehen</a></li>
+          <li><a href="#">Lehrplan-Bezug</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Für Schulen</h5>
+        <ul>
+          <li><a href="#">Lehrpersonen-Ansicht</a></li>
+          <li><a href="#">Preise & Lizenzen</a></li>
+          <li><a href="#">Onboarding</a></li>
+          <li><a href="#">Referenzschulen</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Unternehmen</h5>
+        <ul>
+          <li><a href="#">Über uns</a></li>
+          <li><a href="#">Kontakt</a></li>
+          <li><a href="#">Datenschutz</a></li>
+          <li><a href="#">Impressum</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ExcelKurs.ch — Alle Rechte vorbehalten</span>
+      <span>🇨🇭 Made in Switzerland</span>
+    </div>
+  </footer>
+
+</body>
+</html>
