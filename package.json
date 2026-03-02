@@ -1,0 +1,11 @@
+{
+  "name": "excel-kurs",
+  "version": "1.0.0",
+  "description": "Excel Kurs Homepage",
+  "scripts": {
+    "deploy": "wrangler pages deploy . --project-name=excel-kurs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
