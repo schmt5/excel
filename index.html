@@ -3,7 +3,84 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Excel Kurs – Excel Grundlagenkurs für Schulen</title>
+        <title>
+            Excel Kurs – Excel Grundlagenkurs für Schulen & Berufsschulen
+        </title>
+
+        <!-- SEO Meta Tags -->
+        <meta
+            name="description"
+            content="Interaktiver Excel Grundlagenkurs für Schweizer Schulen und Berufsschulen. Strukturierte Lernplattform für Schüler im eigenen Tempo – kostenlos für Lehrpersonen."
+        />
+        <meta
+            name="keywords"
+            content="Excel Kurs, Excel lernen, Excel Grundlagen, Excel Schulen Schweiz, Excel Berufsschule, Excel Lernplattform, Excel Unterricht"
+        />
+        <meta name="author" content="ExcelKurs.ch" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://excelkurs.ch/" />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://excelkurs.ch/" />
+        <meta
+            property="og:title"
+            content="Excel Kurs – Excel Grundlagenkurs für Schulen & Berufsschulen"
+        />
+        <meta
+            property="og:description"
+            content="Interaktiver Excel Grundlagenkurs für Schweizer Schulen. Schüler lernen im eigenen Tempo – Lehrpersonen behalten den Überblick."
+        />
+        <meta property="og:locale" content="de_CH" />
+        <meta property="og:site_name" content="ExcelKurs.ch" />
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://excelkurs.ch/" />
+        <meta
+            name="twitter:title"
+            content="Excel Kurs – Excel Grundlagenkurs für Schulen"
+        />
+        <meta
+            name="twitter:description"
+            content="Interaktiver Excel Grundlagenkurs für Schweizer Schulen. Kostenlos für Lehrpersonen."
+        />
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+        <!-- Structured Data / Schema.org -->
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "EducationalOrganization",
+                "name": "ExcelKurs.ch",
+                "description": "Excel Grundlagenkurs für Schweizer Schulen und Berufsschulen",
+                "url": "https://excelkurs.ch/",
+                "areaServed": {
+                    "@type": "Country",
+                    "name": "Schweiz"
+                },
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressCountry": "CH"
+                },
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "email": "0sokey0@gmail.com",
+                    "contactType": "customer service"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "category": "Bildung",
+                    "price": "0",
+                    "priceCurrency": "CHF",
+                    "availability": "https://schema.org/InStock",
+                    "description": "Kostenloser Excel Grundlagenkurs für Lehrpersonen"
+                }
+            }
+        </script>
+
         <link
             href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
             rel="stylesheet"
@@ -1398,7 +1475,7 @@
         <!-- ══════════════════════════════════════
        HERO
   ══════════════════════════════════════ -->
-        <section style="overflow: hidden">
+        <section style="overflow: hidden" aria-label="Hero">
             <div class="hero">
                 <!-- Left: Text -->
                 <div>
@@ -1594,7 +1671,7 @@
                     <div class="tag" style="margin-bottom: 16px">
                         Warum Excel Kurs
                     </div>
-                    <h2 class="section-title">
+                    <h2 class="section-title" id="audience-split">
                         Lernen, das <em>wirklich funktioniert</em>
                     </h2>
                     <p class="section-sub">
@@ -1686,7 +1763,7 @@
         <section class="audience-section" id="lehrpersonen">
             <div style="max-width: 1120px; margin: 0 auto">
                 <div class="section-header" style="margin-bottom: 36px">
-                    <h2 class="section-title">
+                    <h2 class="section-title" id="why-excelkurs">
                         Eine Plattform —<br /><em>zwei Perspektiven</em>
                     </h2>
                     <p class="section-sub">
@@ -2031,7 +2108,7 @@
                     <div class="tag" style="margin-bottom: 16px">
                         8 Module · ca. 12 Stunden
                     </div>
-                    <h2 class="section-title">
+                    <h2 class="section-title" id="curriculum">
                         Von null bis <em>sicher</em> in Excel
                     </h2>
                     <p class="section-sub">
@@ -2145,7 +2222,7 @@
             <div class="platform-inner">
                 <div class="platform-text">
                     <div class="tag">Die Lernplattform</div>
-                    <h2 style="margin-top: 14px">
+                    <h2 style="margin-top: 14px" id="platform-preview">
                         Interaktiv üben —<br /><em>sofort Feedback</em> erhalten
                     </h2>
                     <p>
@@ -2367,7 +2444,7 @@
         <!-- ══════════════════════════════════════
        CTA
   ══════════════════════════════════════ -->
-        <section class="cta-section">
+        <section class="cta-section" aria-label="Call to Action">
             <div class="cta-inner">
                 <div class="tag">Jetzt starten</div>
                 <h2>Excel-Kompetenz,<br />die <em>bleibt</em>.</h2>
