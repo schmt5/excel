@@ -888,7 +888,10 @@
                     border-color 0.2s;
                 cursor: default;
             }
-            .module-card:hover {
+            .module-card.has-link {
+                cursor: pointer;
+            }
+            .module-card.has-link:hover {
                 box-shadow: 0 6px 24px rgba(14, 165, 233, 0.12);
                 border-color: var(--sky-200);
                 transform: translateY(-2px);
@@ -965,6 +968,19 @@
                 content: "·";
                 flex-shrink: 0;
                 margin-top: 1px;
+            }
+            .module-link {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                margin-top: 14px;
+                font-size: 12px;
+                font-weight: 600;
+                color: var(--sky-500);
+                text-decoration: none;
+            }
+            .module-link:hover {
+                text-decoration: underline;
             }
 
             /* ══════════════════════════════════════
@@ -2105,9 +2121,7 @@
         <section class="modules-section" id="kurs">
             <div style="max-width: 1120px; margin: 0 auto">
                 <div class="section-header">
-                    <div class="tag" style="margin-bottom: 16px">
-                        8 Module · ca. 12 Stunden
-                    </div>
+                    <div class="tag" style="margin-bottom: 16px">9 Module</div>
                     <h2 class="section-title" id="curriculum">
                         Von null bis <em>sicher</em> in Excel
                     </h2>
@@ -2117,7 +2131,7 @@
                     </p>
                 </div>
                 <div class="modules-grid">
-                    <div class="module-card">
+                    <div class="module-card has-link">
                         <div class="module-num">Modul 1</div>
                         <h4>Zellen & Dateneingabe</h4>
                         <div class="module-topics">
@@ -2128,28 +2142,72 @@
                                 Text, Zahlen, Datum eingeben
                             </div>
                             <div class="module-topic">
-                                Erste Formeln in Zellen
+                                Eiscreme-Tabelle aufbauen
                             </div>
                         </div>
+                        <a
+                            class="module-link"
+                            href="https://tally.so/r/Pd6yr1?user_name=Leo"
+                            target="_blank"
+                        >
+                            Ansehen
+                            <svg
+                                width="11"
+                                height="11"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5"
+                                    stroke="currentColor"
+                                    stroke-width="1.6"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </a>
                     </div>
-                    <div class="module-card">
+                    <div class="module-card has-link">
                         <div class="module-num">Modul 2</div>
-                        <h4>Formatierung</h4>
+                        <h4>Excel als Taschenrechner</h4>
                         <div class="module-topics">
                             <div class="module-topic">
-                                Schrift, Farben, Rahmen
+                                Einfache Formeln: +, −, *, /
                             </div>
                             <div class="module-topic">
-                                Zahlenformate: Währung, %
+                                Grundrechenarten anwenden
                             </div>
                             <div class="module-topic">
-                                Bedingte Formatierung
+                                Verkaufsbeispiele rechnen
                             </div>
                         </div>
+                        <a
+                            class="module-link"
+                            href="https://tally.so/r/ODzq8K?user_name=Leo"
+                            target="_blank"
+                        >
+                            Ansehen
+                            <svg
+                                width="11"
+                                height="11"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5"
+                                    stroke="currentColor"
+                                    stroke-width="1.6"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </a>
                     </div>
-                    <div class="module-card">
+                    <div class="module-card has-link">
                         <div class="module-num">Modul 3</div>
-                        <h4>Formeln & Zellbezüge</h4>
+                        <h4>Formeln mit Zellbezügen</h4>
                         <div class="module-topics">
                             <div class="module-topic">Relative Bezüge</div>
                             <div class="module-topic">
@@ -2157,29 +2215,66 @@
                             </div>
                             <div class="module-topic">Formeln kopieren</div>
                         </div>
+                        <a
+                            class="module-link"
+                            href="https://tally.so/r/ZjVjbv?user_name=Leo"
+                            target="_blank"
+                        >
+                            Ansehen
+                            <svg
+                                width="11"
+                                height="11"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5"
+                                    stroke="currentColor"
+                                    stroke-width="1.6"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </a>
                     </div>
                     <div class="module-card">
                         <div class="module-num">Modul 4</div>
-                        <h4>Wichtige Funktionen</h4>
+                        <h4>Formatierung</h4>
                         <div class="module-topics">
-                            <div class="module-topic">SUMME, MITTELWERT</div>
-                            <div class="module-topic">MAX, MIN, ANZAHL</div>
-                            <div class="module-topic">Funktionsassistent</div>
+                            <div class="module-topic">
+                                Schrift, Farben, Rahmen
+                            </div>
+                            <div class="module-topic">
+                                Zahlenformate & Spaltenbreiten
+                            </div>
+                            <div class="module-topic">
+                                Bedingte Formatierung
+                            </div>
                         </div>
                     </div>
                     <div class="module-card">
                         <div class="module-num">Modul 5</div>
-                        <h4>Sortieren & Filtern</h4>
+                        <h4>Wichtige Funktionen</h4>
                         <div class="module-topics">
-                            <div class="module-topic">Daten als Tabelle</div>
-                            <div class="module-topic">Sortieren & Filtern</div>
+                            <div class="module-topic">SUMME, MITTELWERT</div>
+                            <div class="module-topic">MAX, MIN</div>
                             <div class="module-topic">
-                                Grosse Datensätze auswerten
+                                Wochendaten auswerten
                             </div>
                         </div>
                     </div>
                     <div class="module-card">
                         <div class="module-num">Modul 6</div>
+                        <h4>Sortieren & Filtern</h4>
+                        <div class="module-topics">
+                            <div class="module-topic">Daten sortieren</div>
+                            <div class="module-topic">Zeilen filtern</div>
+                            <div class="module-topic">Daten als Tabelle</div>
+                        </div>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-num">Modul 7</div>
                         <h4>Diagramme</h4>
                         <div class="module-topics">
                             <div class="module-topic">
@@ -2192,7 +2287,7 @@
                         </div>
                     </div>
                     <div class="module-card">
-                        <div class="module-num">Modul 7</div>
+                        <div class="module-num">Modul 8</div>
                         <h4>Drucken & Ausgabe</h4>
                         <div class="module-topics">
                             <div class="module-topic">
@@ -2203,7 +2298,7 @@
                         </div>
                     </div>
                     <div class="module-card featured">
-                        <div class="module-num">Modul 8 — Abschlussprojekt</div>
+                        <div class="module-num">Modul 9 — Abschlussprojekt</div>
                         <h4>Monatsauswertung<br />Eiscremestand</h4>
                         <p>
                             Alle Kursthemen in einer praxisnahen Aufgabe:
