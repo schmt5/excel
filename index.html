@@ -575,21 +575,15 @@
 
             .features-grid {
                 display: grid;
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(2, 1fr);
                 gap: 24px;
-                max-width: 1120px;
+                max-width: 860px;
                 margin: 0 auto;
             }
-            @media (max-width: 900px) {
+            @media (max-width: 600px) {
                 .features-grid {
                     grid-template-columns: 1fr;
                     max-width: 480px;
-                }
-            }
-            @media (min-width: 600px) and (max-width: 900px) {
-                .features-grid {
-                    grid-template-columns: repeat(2, 1fr);
-                    max-width: 100%;
                 }
             }
 
@@ -627,6 +621,10 @@
             .feature-icon-amber {
                 background: var(--amber-100);
                 color: var(--amber-600);
+            }
+            .feature-icon-purple {
+                background: #ede9fe;
+                color: #7c3aed;
             }
             .feature-card h3 {
                 font-size: 16px;
@@ -666,11 +664,12 @@
                 overflow: hidden;
             }
             .audience-card-students {
-                background: var(--stone-900);
+                background: #fff;
+                border: 1px solid var(--stone-200);
             }
             .audience-card-teachers {
-                background: var(--sky-50);
-                border: 1px solid var(--sky-100);
+                background: #fff;
+                border: 1px solid var(--stone-200);
             }
 
             .audience-card::before {
@@ -686,14 +685,14 @@
             .audience-card-students::before {
                 background: radial-gradient(
                     circle,
-                    rgba(14, 165, 233, 0.2) 0%,
+                    rgba(14, 165, 233, 0.08) 0%,
                     transparent 70%
                 );
             }
             .audience-card-teachers::before {
                 background: radial-gradient(
                     circle,
-                    rgba(14, 165, 233, 0.15) 0%,
+                    rgba(14, 165, 233, 0.08) 0%,
                     transparent 70%
                 );
             }
@@ -706,7 +705,7 @@
                 margin-bottom: 16px;
             }
             .audience-card-students .audience-label {
-                color: var(--sky-400);
+                color: var(--sky-600);
             }
             .audience-card-teachers .audience-label {
                 color: var(--sky-600);
@@ -719,7 +718,7 @@
                 margin-bottom: 14px;
             }
             .audience-card-students h3 {
-                color: #fff;
+                color: var(--stone-900);
             }
             .audience-card-teachers h3 {
                 color: var(--stone-900);
@@ -731,7 +730,7 @@
                 margin-bottom: 28px;
             }
             .audience-card-students p {
-                color: var(--stone-400);
+                color: var(--stone-500);
             }
             .audience-card-teachers p {
                 color: var(--stone-500);
@@ -751,7 +750,7 @@
                 font-weight: 500;
             }
             .audience-card-students .audience-feature {
-                color: var(--stone-300);
+                color: var(--stone-600);
             }
             .audience-card-teachers .audience-feature {
                 color: var(--stone-600);
@@ -766,8 +765,8 @@
                 justify-content: center;
             }
             .audience-card-students .audience-check {
-                background: rgba(14, 165, 233, 0.2);
-                color: var(--sky-400);
+                background: var(--sky-100);
+                color: var(--sky-600);
             }
             .audience-card-teachers .audience-check {
                 background: var(--sky-100);
@@ -776,13 +775,9 @@
 
             /* Mini-Mockup inside audience card */
             .mini-mockup {
-                background: rgba(255, 255, 255, 0.06);
+                background: var(--stone-50);
                 border-radius: 12px;
                 padding: 16px;
-                border: 1px solid rgba(255, 255, 255, 0.08);
-            }
-            .mini-mockup-teachers {
-                background: #fff;
                 border: 1px solid var(--stone-100);
             }
             .mini-mockup-label {
@@ -793,7 +788,7 @@
                 margin-bottom: 10px;
             }
             .audience-card-students .mini-mockup-label {
-                color: var(--stone-500);
+                color: var(--stone-400);
             }
             .audience-card-teachers .mini-mockup-label {
                 color: var(--stone-400);
@@ -814,7 +809,7 @@
                 flex-shrink: 0;
             }
             .audience-card-students .mm-name {
-                color: var(--stone-400);
+                color: var(--stone-600);
             }
             .audience-card-teachers .mm-name {
                 color: var(--stone-600);
@@ -826,7 +821,7 @@
                 overflow: hidden;
             }
             .audience-card-students .mm-bar {
-                background: rgba(255, 255, 255, 0.08);
+                background: var(--stone-100);
             }
             .audience-card-teachers .mm-bar {
                 background: var(--stone-100);
@@ -834,9 +829,6 @@
             .mm-bar-fill {
                 height: 100%;
                 border-radius: 3px;
-                background: var(--sky-400);
-            }
-            .audience-card-teachers .mm-bar-fill {
                 background: var(--sky-500);
             }
             .mm-pct {
@@ -846,10 +838,65 @@
                 text-align: right;
             }
             .audience-card-students .mm-pct {
-                color: var(--stone-400);
+                color: var(--stone-500);
             }
             .audience-card-teachers .mm-pct {
                 color: var(--stone-500);
+            }
+
+            /* Progress grid inside teachers mockup */
+            .mm-grid {
+                display: grid;
+                gap: 4px;
+            }
+            .mm-grid-header {
+                display: grid;
+                grid-template-columns: 72px repeat(5, 1fr);
+                gap: 4px;
+                margin-bottom: 2px;
+            }
+            .mm-grid-col-label {
+                font-size: 9px;
+                font-weight: 700;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                color: var(--stone-400);
+                text-align: center;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .mm-grid-row {
+                display: grid;
+                grid-template-columns: 72px repeat(5, 1fr);
+                gap: 4px;
+                align-items: center;
+            }
+            .mm-grid-name {
+                font-size: 11px;
+                font-weight: 500;
+                color: var(--stone-600);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .mm-cell {
+                height: 18px;
+                border-radius: 4px;
+                background: var(--stone-100);
+            }
+            .mm-cell.done {
+                background: #bbf7d0;
+            }
+            .mm-cell.done::after {
+                content: "✓";
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                font-size: 9px;
+                color: #16a34a;
+                font-weight: 700;
             }
 
             /* ══════════════════════════════════════
@@ -1670,7 +1717,7 @@
                             </svg>
                         </div>
                         <div>
-                            <strong>Klasse 3b</strong>
+                            <strong>Klasse 8b</strong>
                             <span>Ø Fortschritt: 68%</span>
                         </div>
                     </div>
@@ -1688,7 +1735,7 @@
                         Warum Excel Kurs
                     </div>
                     <h2 class="section-title" id="audience-split">
-                        Ein Kurs, der <em>gut durchdacht</em> ist
+                        Mehr als <em>ein Arbeitsblatt</em>
                     </h2>
                     <p class="section-sub">
                         Kein PDF, kein Frontalunterricht. Ein strukturierter,
@@ -1767,6 +1814,252 @@
                             Von den Grundlagen bis zum Abschlussprojekt — ein
                             klarer, aufbauender Lernpfad, der mit dem Schweizer
                             Lehrplan abgestimmt ist.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon feature-icon-purple">
+                            <svg
+                                width="22"
+                                height="22"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width="2"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                                />
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                />
+                            </svg>
+                        </div>
+                        <h3>Mini-Games für die Repetition</h3>
+                        <p>
+                            Gelerntes spielerisch festigen — kurze interaktive
+                            Spiele helfen, Formeln und Funktionen zu wiederholen
+                            und im Gedächtnis zu verankern.
+                        </p>
+                        <a
+                            class="module-link"
+                            href="https://excel-games-gamma.vercel.app/formel-baukasten"
+                            target="_blank"
+                        >
+                            Ausprobieren
+                            <svg
+                                width="11"
+                                height="11"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5"
+                                    stroke="currentColor"
+                                    stroke-width="1.6"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════
+       MODULE ÜBERSICHT
+  ══════════════════════════════════════ -->
+        <section class="modules-section" id="kurs">
+            <div style="max-width: 1120px; margin: 0 auto">
+                <div class="section-header">
+                    <div class="tag" style="margin-bottom: 16px">9 Module</div>
+                    <h2 class="section-title" id="curriculum">
+                        Der Lernpfad im <em>Überblick</em>
+                    </h2>
+                    <p class="section-sub">
+                        Ein aufbauender Lernpfad — von den ersten Klicks bis zum
+                        fertigen Abschlussprojekt.
+                    </p>
+                </div>
+                <div class="modules-grid">
+                    <div class="module-card has-link">
+                        <div class="module-num">Modul 1</div>
+                        <h4>Zellen & Dateneingabe</h4>
+                        <div class="module-topics">
+                            <div class="module-topic">
+                                Zeilen, Spalten, Zellen
+                            </div>
+                            <div class="module-topic">
+                                Text, Zahlen, Datum eingeben
+                            </div>
+                            <div class="module-topic">
+                                Eiscreme-Tabelle aufbauen
+                            </div>
+                        </div>
+                        <a
+                            class="module-link"
+                            href="https://tally.so/r/Pd6yr1?user_name=Leo"
+                            target="_blank"
+                        >
+                            Ansehen
+                            <svg
+                                width="11"
+                                height="11"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5"
+                                    stroke="currentColor"
+                                    stroke-width="1.6"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="module-card has-link">
+                        <div class="module-num">Modul 2</div>
+                        <h4>Excel als Taschenrechner</h4>
+                        <div class="module-topics">
+                            <div class="module-topic">
+                                Einfache Formeln: +, −, *, /
+                            </div>
+                            <div class="module-topic">
+                                Grundrechenarten anwenden
+                            </div>
+                            <div class="module-topic">
+                                Verkaufsbeispiele rechnen
+                            </div>
+                        </div>
+                        <a
+                            class="module-link"
+                            href="https://tally.so/r/ODzq8K?user_name=Leo"
+                            target="_blank"
+                        >
+                            Ansehen
+                            <svg
+                                width="11"
+                                height="11"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5"
+                                    stroke="currentColor"
+                                    stroke-width="1.6"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="module-card has-link">
+                        <div class="module-num">Modul 3</div>
+                        <h4>Formeln mit Zellbezügen</h4>
+                        <div class="module-topics">
+                            <div class="module-topic">Relative Bezüge</div>
+                            <div class="module-topic">
+                                Absolute Bezüge mit $
+                            </div>
+                            <div class="module-topic">Formeln kopieren</div>
+                        </div>
+                        <a
+                            class="module-link"
+                            href="https://tally.so/r/ZjVjbv?user_name=Leo"
+                            target="_blank"
+                        >
+                            Ansehen
+                            <svg
+                                width="11"
+                                height="11"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5"
+                                    stroke="currentColor"
+                                    stroke-width="1.6"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-num">Modul 4</div>
+                        <h4>Formatierung</h4>
+                        <div class="module-topics">
+                            <div class="module-topic">
+                                Schrift, Farben, Rahmen
+                            </div>
+                            <div class="module-topic">
+                                Zahlenformate & Spaltenbreiten
+                            </div>
+                            <div class="module-topic">
+                                Bedingte Formatierung
+                            </div>
+                        </div>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-num">Modul 5</div>
+                        <h4>Wichtige Funktionen</h4>
+                        <div class="module-topics">
+                            <div class="module-topic">SUMME, MITTELWERT</div>
+                            <div class="module-topic">MAX, MIN</div>
+                            <div class="module-topic">
+                                Wochendaten auswerten
+                            </div>
+                        </div>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-num">Modul 6</div>
+                        <h4>Sortieren & Filtern</h4>
+                        <div class="module-topics">
+                            <div class="module-topic">Daten sortieren</div>
+                            <div class="module-topic">Zeilen filtern</div>
+                            <div class="module-topic">Daten als Tabelle</div>
+                        </div>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-num">Modul 7</div>
+                        <h4>Diagramme</h4>
+                        <div class="module-topics">
+                            <div class="module-topic">
+                                Säulen-, Linien-, Tortendiagramm
+                            </div>
+                            <div class="module-topic">Diagramme erstellen</div>
+                            <div class="module-topic">
+                                Beschriften & anpassen
+                            </div>
+                        </div>
+                    </div>
+                    <div class="module-card">
+                        <div class="module-num">Modul 8</div>
+                        <h4>Drucken & Ausgabe</h4>
+                        <div class="module-topics">
+                            <div class="module-topic">
+                                Seitenlayout & Druckbereich
+                            </div>
+                            <div class="module-topic">Kopf- & Fusszeilen</div>
+                            <div class="module-topic">Export als PDF</div>
+                        </div>
+                    </div>
+                    <div class="module-card featured">
+                        <div class="module-num">Modul 9 — Abschlussprojekt</div>
+                        <h4>Monatsauswertung<br />Eiscremestand</h4>
+                        <p>
+                            Alle Kursthemen in einer praxisnahen Aufgabe:
+                            vollständige Auswertung von der Dateneingabe bis zum
+                            fertigen PDF-Bericht.
                         </p>
                     </div>
                 </div>
@@ -2012,299 +2305,61 @@
                                 Fortschritts-Export als PDF oder Excel
                             </div>
                         </div>
-                        <div class="mini-mockup mini-mockup-teachers">
+                        <div class="mini-mockup">
                             <div class="mini-mockup-label">
-                                Klasse 3b — Modul 3 Fortschritt
+                                Klasse 8b — Fortschritt
                             </div>
-                            <div class="mm-progress-row">
-                                <span
-                                    class="mm-name"
-                                    style="color: var(--stone-600)"
-                                    >Mia S.</span
-                                >
-                                <div
-                                    class="mm-bar"
-                                    style="background: var(--stone-100)"
-                                >
-                                    <div
-                                        class="mm-bar-fill"
-                                        style="
-                                            width: 100%;
-                                            background: var(--sky-500);
-                                        "
-                                    ></div>
+                            <div class="mm-grid-header">
+                                <div></div>
+                                <div class="mm-grid-col-label">M1</div>
+                                <div class="mm-grid-col-label">M2</div>
+                                <div class="mm-grid-col-label">M3</div>
+                                <div class="mm-grid-col-label">M4</div>
+                                <div class="mm-grid-col-label">M5</div>
+                            </div>
+                            <div class="mm-grid">
+                                <div class="mm-grid-row">
+                                    <div class="mm-grid-name">Mia S.</div>
+                                    <div class="mm-cell done"></div>
+                                    <div class="mm-cell done"></div>
+                                    <div class="mm-cell done"></div>
+                                    <div class="mm-cell done"></div>
+                                    <div class="mm-cell done"></div>
                                 </div>
-                                <span
-                                    class="mm-pct"
-                                    style="color: var(--stone-600)"
-                                    >100%</span
-                                >
-                            </div>
-                            <div class="mm-progress-row">
-                                <span
-                                    class="mm-name"
-                                    style="color: var(--stone-600)"
-                                    >Lukas M.</span
-                                >
-                                <div
-                                    class="mm-bar"
-                                    style="background: var(--stone-100)"
-                                >
-                                    <div
-                                        class="mm-bar-fill"
-                                        style="
-                                            width: 85%;
-                                            background: var(--sky-500);
-                                        "
-                                    ></div>
+                                <div class="mm-grid-row">
+                                    <div class="mm-grid-name">Lukas M.</div>
+                                    <div class="mm-cell done"></div>
+                                    <div class="mm-cell done"></div>
+                                    <div class="mm-cell done"></div>
+                                    <div class="mm-cell done"></div>
+                                    <div class="mm-cell"></div>
                                 </div>
-                                <span
-                                    class="mm-pct"
-                                    style="color: var(--stone-600)"
-                                    >85%</span
-                                >
-                            </div>
-                            <div class="mm-progress-row">
-                                <span
-                                    class="mm-name"
-                                    style="color: var(--stone-600)"
-                                    >Jana K.</span
-                                >
-                                <div
-                                    class="mm-bar"
-                                    style="background: var(--stone-100)"
-                                >
-                                    <div
-                                        class="mm-bar-fill"
-                                        style="
-                                            width: 60%;
-                                            background: var(--sky-500);
-                                        "
-                                    ></div>
+                                <div class="mm-grid-row">
+                                    <div class="mm-grid-name">Jana K.</div>
+                                    <div class="mm-cell done"></div>
+                                    <div class="mm-cell done"></div>
+                                    <div class="mm-cell done"></div>
+                                    <div class="mm-cell"></div>
+                                    <div class="mm-cell"></div>
                                 </div>
-                                <span
-                                    class="mm-pct"
-                                    style="color: var(--stone-600)"
-                                    >60%</span
-                                >
-                            </div>
-                            <div class="mm-progress-row">
-                                <span
-                                    class="mm-name"
-                                    style="color: var(--stone-600)"
-                                    >Tim R.</span
-                                >
-                                <div
-                                    class="mm-bar"
-                                    style="background: var(--stone-100)"
-                                >
-                                    <div
-                                        class="mm-bar-fill"
-                                        style="width: 30%; background: #f59e0b"
-                                    ></div>
+                                <div class="mm-grid-row">
+                                    <div class="mm-grid-name">Tim R.</div>
+                                    <div class="mm-cell done"></div>
+                                    <div class="mm-cell done"></div>
+                                    <div class="mm-cell"></div>
+                                    <div class="mm-cell"></div>
+                                    <div class="mm-cell"></div>
                                 </div>
-                                <span
-                                    class="mm-pct"
-                                    style="color: var(--stone-600)"
-                                    >30%</span
-                                >
+                                <div class="mm-grid-row">
+                                    <div class="mm-grid-name">Sara B.</div>
+                                    <div class="mm-cell done"></div>
+                                    <div class="mm-cell"></div>
+                                    <div class="mm-cell"></div>
+                                    <div class="mm-cell"></div>
+                                    <div class="mm-cell"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ══════════════════════════════════════
-       MODULE ÜBERSICHT
-  ══════════════════════════════════════ -->
-        <section class="modules-section" id="kurs">
-            <div style="max-width: 1120px; margin: 0 auto">
-                <div class="section-header">
-                    <div class="tag" style="margin-bottom: 16px">9 Module</div>
-                    <h2 class="section-title" id="curriculum">
-                        Von null bis <em>sicher</em> in Excel
-                    </h2>
-                    <p class="section-sub">
-                        Ein aufbauender Lernpfad — von den ersten Klicks bis zum
-                        fertigen Abschlussprojekt.
-                    </p>
-                </div>
-                <div class="modules-grid">
-                    <div class="module-card has-link">
-                        <div class="module-num">Modul 1</div>
-                        <h4>Zellen & Dateneingabe</h4>
-                        <div class="module-topics">
-                            <div class="module-topic">
-                                Zeilen, Spalten, Zellen
-                            </div>
-                            <div class="module-topic">
-                                Text, Zahlen, Datum eingeben
-                            </div>
-                            <div class="module-topic">
-                                Eiscreme-Tabelle aufbauen
-                            </div>
-                        </div>
-                        <a
-                            class="module-link"
-                            href="https://tally.so/r/Pd6yr1?user_name=Leo"
-                            target="_blank"
-                        >
-                            Ansehen
-                            <svg
-                                width="11"
-                                height="11"
-                                viewBox="0 0 12 12"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5"
-                                    stroke="currentColor"
-                                    stroke-width="1.6"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                />
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="module-card has-link">
-                        <div class="module-num">Modul 2</div>
-                        <h4>Excel als Taschenrechner</h4>
-                        <div class="module-topics">
-                            <div class="module-topic">
-                                Einfache Formeln: +, −, *, /
-                            </div>
-                            <div class="module-topic">
-                                Grundrechenarten anwenden
-                            </div>
-                            <div class="module-topic">
-                                Verkaufsbeispiele rechnen
-                            </div>
-                        </div>
-                        <a
-                            class="module-link"
-                            href="https://tally.so/r/ODzq8K?user_name=Leo"
-                            target="_blank"
-                        >
-                            Ansehen
-                            <svg
-                                width="11"
-                                height="11"
-                                viewBox="0 0 12 12"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5"
-                                    stroke="currentColor"
-                                    stroke-width="1.6"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                />
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="module-card has-link">
-                        <div class="module-num">Modul 3</div>
-                        <h4>Formeln mit Zellbezügen</h4>
-                        <div class="module-topics">
-                            <div class="module-topic">Relative Bezüge</div>
-                            <div class="module-topic">
-                                Absolute Bezüge mit $
-                            </div>
-                            <div class="module-topic">Formeln kopieren</div>
-                        </div>
-                        <a
-                            class="module-link"
-                            href="https://tally.so/r/ZjVjbv?user_name=Leo"
-                            target="_blank"
-                        >
-                            Ansehen
-                            <svg
-                                width="11"
-                                height="11"
-                                viewBox="0 0 12 12"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5"
-                                    stroke="currentColor"
-                                    stroke-width="1.6"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                />
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="module-card">
-                        <div class="module-num">Modul 4</div>
-                        <h4>Formatierung</h4>
-                        <div class="module-topics">
-                            <div class="module-topic">
-                                Schrift, Farben, Rahmen
-                            </div>
-                            <div class="module-topic">
-                                Zahlenformate & Spaltenbreiten
-                            </div>
-                            <div class="module-topic">
-                                Bedingte Formatierung
-                            </div>
-                        </div>
-                    </div>
-                    <div class="module-card">
-                        <div class="module-num">Modul 5</div>
-                        <h4>Wichtige Funktionen</h4>
-                        <div class="module-topics">
-                            <div class="module-topic">SUMME, MITTELWERT</div>
-                            <div class="module-topic">MAX, MIN</div>
-                            <div class="module-topic">
-                                Wochendaten auswerten
-                            </div>
-                        </div>
-                    </div>
-                    <div class="module-card">
-                        <div class="module-num">Modul 6</div>
-                        <h4>Sortieren & Filtern</h4>
-                        <div class="module-topics">
-                            <div class="module-topic">Daten sortieren</div>
-                            <div class="module-topic">Zeilen filtern</div>
-                            <div class="module-topic">Daten als Tabelle</div>
-                        </div>
-                    </div>
-                    <div class="module-card">
-                        <div class="module-num">Modul 7</div>
-                        <h4>Diagramme</h4>
-                        <div class="module-topics">
-                            <div class="module-topic">
-                                Säulen-, Linien-, Tortendiagramm
-                            </div>
-                            <div class="module-topic">Diagramme erstellen</div>
-                            <div class="module-topic">
-                                Beschriften & anpassen
-                            </div>
-                        </div>
-                    </div>
-                    <div class="module-card">
-                        <div class="module-num">Modul 8</div>
-                        <h4>Drucken & Ausgabe</h4>
-                        <div class="module-topics">
-                            <div class="module-topic">
-                                Seitenlayout & Druckbereich
-                            </div>
-                            <div class="module-topic">Kopf- & Fusszeilen</div>
-                            <div class="module-topic">Export als PDF</div>
-                        </div>
-                    </div>
-                    <div class="module-card featured">
-                        <div class="module-num">Modul 9 — Abschlussprojekt</div>
-                        <h4>Monatsauswertung<br />Eiscremestand</h4>
-                        <p>
-                            Alle Kursthemen in einer praxisnahen Aufgabe:
-                            vollständige Auswertung von der Dateneingabe bis zum
-                            fertigen PDF-Bericht.
-                        </p>
                     </div>
                 </div>
             </div>
@@ -2542,7 +2597,7 @@
         <section class="cta-section" aria-label="Call to Action">
             <div class="cta-inner">
                 <div class="tag">Jetzt starten</div>
-                <h2>Excel-Grundlagen,<br />die <em>sitzen</em>.</h2>
+                <h2>Excel-Kurs<br />für die <em>Schule</em>.</h2>
                 <p>
                     Bist du Lehrperson und suchst nach einem geeigneten
                     Excel-Kurs für deine Klasse? Schreibe mir ein E-Mail und ich
