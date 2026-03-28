@@ -1029,7 +1029,21 @@
                     display: none;
                 }
             }
+            .boty-grid {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 5rem;
+              align-items: center;
+            }
             @media (max-width: 600px) {
+              .boty-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+              }
+              .boty-grid .boty-image {
+                order: 1;
+              }
+            }
                 .hero h1 {
                     font-size: 1.9rem;
                 }
@@ -1878,14 +1892,7 @@
         <!-- BOTY -->
         <section style="background: var(--bg)">
             <div class="section-inner">
-                <div
-                    style="
-                        display: grid;
-                        grid-template-columns: 1fr 1fr;
-                        gap: 5rem;
-                        align-items: center;
-                    "
-                >
+                <div class="boty-grid">
                     <!-- Text -->
                     <div>
                         <div class="section-label">Der Lernassistent</div>
@@ -1922,6 +1929,7 @@
 
                     <!-- Boty image -->
                     <div
+                        class="boty-image"
                         style="
                             flex-shrink: 0;
                             position: relative;
