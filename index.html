@@ -1035,6 +1035,12 @@
               gap: 5rem;
               align-items: center;
             }
+            .story-grid {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 3rem;
+              align-items: center;
+            }
             @media (max-width: 600px) {
               .boty-grid {
                 grid-template-columns: 1fr;
@@ -1042,6 +1048,10 @@
               }
               .boty-grid .boty-image {
                 order: 1;
+              }
+              .story-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
               }
             }
                 .hero h1 {
@@ -1876,16 +1886,34 @@
         <!-- STORY -->
         <section style="background: var(--bg-subtle)">
             <div class="section-inner">
-                <div class="section-label">Der rote Faden</div>
-                <h2 class="section-title">
-                    🍦 Eine Geschichte durch <em>alle Lerneinheiten</em>
-                </h2>
-                <p class="section-subtitle">
-                    Lea betreibt die Gelateria di Orso — und braucht dringend
-                    Hilfe bei der Administration. Die Lernenden übernehmen diese
-                    Rolle und lösen Lerneinheit für Lerneinheit echte Aufträge
-                    aus dem Alltag der Gelateria.
-                </p>
+                <div class="story-grid">
+                    <div>
+                        <div class="section-label">Der rote Faden</div>
+                        <h2 class="section-title">
+                            🍦 Eine Geschichte durch <em>alle Lerneinheiten</em>
+                        </h2>
+                        <p class="section-subtitle">
+                            Lea betreibt die Gelateria di Orso — und braucht
+                            dringend Hilfe bei der Administration. Die Lernenden
+                            übernehmen diese Rolle und lösen Lerneinheit für
+                            Lerneinheit echte Aufträge aus dem Alltag der
+                            Gelateria.
+                        </p>
+                    </div>
+                    <div>
+                        <img
+                            src="lager-opt.png"
+                            alt="Gelateria di Orso"
+                            style="
+                                width: 100%;
+                                aspect-ratio: 1 / 1;
+                                object-fit: cover;
+                                border-radius: 1rem;
+                                display: block;
+                            "
+                        />
+                    </div>
+                </div>
             </div>
         </section>
 
