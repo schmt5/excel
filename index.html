@@ -12,6 +12,7 @@
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
             rel="stylesheet"
         />
+        <script src="https://tally.so/widgets/embed.js"></script>
         <style>
             *,
             *::before,
@@ -1073,109 +1074,7 @@
             }
 
             /* ── MODAL ── */
-            .modal-overlay {
-                position: fixed;
-                inset: 0;
-                background: rgba(0, 0, 0, 0.65);
-                backdrop-filter: blur(4px);
-                -webkit-backdrop-filter: blur(4px);
-                z-index: 1000;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 24px;
-                opacity: 0;
-                visibility: hidden;
-                transition:
-                    opacity 0.25s ease,
-                    visibility 0.25s ease;
-            }
-            .modal-overlay.is-open {
-                opacity: 1;
-                visibility: visible;
-            }
-            .modal-box {
-                background: #fff;
-                border: 1px solid var(--border);
-                border-radius: 20px;
-                width: 100%;
-                max-width: 560px;
-                max-height: 90vh;
-                overflow-y: auto;
-                position: relative;
-                transform: translateY(16px) scale(0.98);
-                transition: transform 0.25s ease;
-                box-shadow: 0 24px 64px rgba(0, 0, 0, 0.15);
-            }
-            .modal-overlay.is-open .modal-box {
-                transform: translateY(0) scale(1);
-            }
-            .modal-header {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 24px 28px 0 28px;
-            }
-            .modal-title {
-                font-size: 1.1rem;
-                font-weight: 700;
-                color: var(--dark);
-            }
-            .modal-close {
-                background: var(--bg-subtle);
-                border: none;
-                color: var(--muted);
-                width: 32px;
-                height: 32px;
-                border-radius: 8px;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition:
-                    background 0.15s,
-                    color 0.15s;
-                flex-shrink: 0;
-            }
-            .modal-close:hover {
-                background: var(--border);
-                color: var(--dark);
-            }
-            .modal-body {
-                padding: 16px 28px 8px 28px;
-            }
-            .modal-divider {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                padding: 4px 28px 16px 28px;
-                color: var(--muted);
-                font-size: 13px;
-            }
-            .modal-divider::before,
-            .modal-divider::after {
-                content: "";
-                flex: 1;
-                height: 1px;
-                background: var(--border);
-            }
-            .modal-email-action {
-                padding: 0 28px 28px 28px;
-                text-align: center;
-            }
-            .modal-email-action a {
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
-                color: var(--muted);
-                font-size: 14px;
-                font-weight: 500;
-                text-decoration: none;
-                transition: color 0.15s;
-            }
-            .modal-email-action a:hover {
-                color: var(--dark);
-            }
+
             @keyframes boty-float {
                 0%,
                 100% {
@@ -2063,73 +1962,6 @@
             </div>
         </section>
 
-        <!-- CONTACT MODAL -->
-        <div
-            class="modal-overlay"
-            id="contactModal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="modalTitle"
-        >
-            <div class="modal-box">
-                <div class="modal-header">
-                    <span class="modal-title" id="modalTitle">Kursanfrage</span>
-                    <button
-                        class="modal-close"
-                        id="modalClose"
-                        aria-label="Schliessen"
-                    >
-                        <svg
-                            width="14"
-                            height="14"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2.5"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M6 18L18 6M6 6l12 12"
-                            />
-                        </svg>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <iframe
-                        data-tally-src="https://tally.so/embed/zxKdBE?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-                        loading="lazy"
-                        width="100%"
-                        height="371"
-                        frameborder="0"
-                        marginheight="0"
-                        marginwidth="0"
-                        title="Kontaktformular - Excel Unterricht"
-                    ></iframe>
-                </div>
-                <div class="modal-divider">oder</div>
-                <div class="modal-email-action">
-                    <a href="mailto:pablo.sokey@gmail.com">
-                        <svg
-                            width="15"
-                            height="15"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                            />
-                        </svg>
-                        Direkt per E-Mail schreiben
-                    </a>
-                </div>
-            </div>
-        </div>
-
         <!-- FOOTER -->
         <footer>
             <div class="footer-inner">
@@ -2163,64 +1995,21 @@
             </div>
         </footer>
         <script>
-            var contactModal = document.getElementById("contactModal");
-            var modalClose = document.getElementById("modalClose");
-
-            var tallyLoaded = false;
-
             function openContactModal() {
-                contactModal.classList.add("is-open");
-                document.body.style.overflow = "hidden";
-                if (!tallyLoaded) {
-                    tallyLoaded = true;
-                    var w = "https://tally.so/widgets/embed.js";
-                    var v = function () {
-                        if (typeof Tally !== "undefined") {
-                            Tally.loadEmbeds();
-                        } else {
-                            document
-                                .querySelectorAll(
-                                    "iframe[data-tally-src]:not([src])",
-                                )
-                                .forEach(function (e) {
-                                    e.src = e.dataset.tallySrc;
-                                });
-                        }
-                    };
-                    if (typeof Tally !== "undefined") {
-                        v();
-                    } else if (
-                        document.querySelector('script[src="' + w + '"]') ==
-                        null
-                    ) {
-                        var s = document.createElement("script");
-                        s.src = w;
-                        s.onload = v;
-                        s.onerror = v;
-                        document.body.appendChild(s);
-                    }
+                if (typeof Tally !== "undefined") {
+                    Tally.openPopup("zxKdBE", {
+                        layout: "modal",
+                        hideTitle: false,
+                        width: 560,
+                    });
                 }
             }
 
             function closeContactModal() {
-                contactModal.classList.remove("is-open");
-                document.body.style.overflow = "";
-            }
-
-            modalClose.addEventListener("click", closeContactModal);
-
-            contactModal.addEventListener("click", function (e) {
-                if (e.target === contactModal) closeContactModal();
-            });
-
-            document.addEventListener("keydown", function (e) {
-                if (
-                    e.key === "Escape" &&
-                    contactModal.classList.contains("is-open")
-                ) {
-                    closeContactModal();
+                if (typeof Tally !== "undefined") {
+                    Tally.closePopup("zxKdBE");
                 }
-            });
+            }
         </script>
     </body>
 </html>
