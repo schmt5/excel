@@ -457,11 +457,7 @@
                 background: var(--emerald-500);
                 color: #fff;
             }
-            .mu-btn.danger {
-                background: var(--red-50);
-                color: var(--red-600);
-                border: 1px solid var(--red-100);
-            }
+
             .mu-checkbox {
                 width: 18px;
                 height: 18px;
@@ -566,26 +562,7 @@
                 background: var(--stone-100);
                 color: var(--stone-500);
             }
-            .mu-nav {
-                display: flex;
-                align-items: center;
-                gap: 2px;
-                padding: 8px 10px;
-                border-bottom: 1px solid var(--stone-100);
-                background: var(--stone-50);
-            }
-            .mu-nav-item {
-                padding: 5px 10px;
-                border-radius: 6px;
-                font-size: 12px;
-                color: var(--stone-500);
-                cursor: default;
-            }
-            .mu-nav-item.active {
-                background: var(--sky-50);
-                color: var(--sky-700);
-                font-weight: 600;
-            }
+
             .mu-table {
                 width: 100%;
                 border-collapse: collapse;
@@ -631,18 +608,6 @@
                 height: 100%;
                 background: var(--emerald-500);
                 border-radius: 99px;
-            }
-            .mu-link-box {
-                flex: 1;
-                font-size: 11px;
-                font-family: monospace;
-                color: var(--sky-600);
-                background: var(--sky-50);
-                padding: 4px 8px;
-                border-radius: 5px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
             }
 
             /* ─── Back to top ────────────────────────────────── */
@@ -1028,8 +993,6 @@
                                     font-family: monospace;
                                 "
                                 >localhost:4000/dev/mailbox</span
-                            ><span class="mockup-label"
-                                >Mockup · Demo-Mailbox</span
                             >
                         </div>
                         <div class="mockup-body">
@@ -1718,6 +1681,33 @@
                                     >Bald verfügbar</span
                                 >
                             </div>
+                            <div
+                                class="mu-card"
+                                style="
+                                    background: #fafaf9;
+                                    border-color: #e7e5e4;
+                                    opacity: 0.7;
+                                "
+                            >
+                                <div
+                                    class="mu-status gray"
+                                    style="flex-shrink: 0"
+                                >
+                                    🔒
+                                </div>
+                                <div
+                                    style="
+                                        flex: 1;
+                                        font-size: 13px;
+                                        color: #a8a29e;
+                                    "
+                                >
+                                    Einheit 5 – Abschluss
+                                </div>
+                                <span style="font-size: 11px; color: #a8a29e"
+                                    >Bald verfügbar</span
+                                >
+                            </div>
                         </div>
                     </div>
 
@@ -1985,8 +1975,8 @@
                         </div>
                     </div>
 
-                    <div class="callout tip">
-                        <div class="callout-icon">🔴</div>
+                    <div class="callout info">
+                        <div class="callout-icon">⚡</div>
                         <p>
                             Die Fortschrittsanzeige aktualisiert sich in
                             <strong>Echtzeit</strong> – du musst die Seite nicht
@@ -2102,7 +2092,9 @@
                             <table class="mu-table">
                                 <thead>
                                     <tr>
-                                        <th style="min-width: 100px">–</th>
+                                        <th style="min-width: 100px">
+                                            Aufgabe
+                                        </th>
                                         <th style="text-align: center">
                                             <div
                                                 style="
