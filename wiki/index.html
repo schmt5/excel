@@ -1,0 +1,2431 @@
+<!doctype html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>LearningLine – Wiki</title>
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            :root {
+                --sky-50: #f0f9ff;
+                --sky-100: #e0f2fe;
+                --sky-200: #bae6fd;
+                --sky-400: #38bdf8;
+                --sky-500: #0ea5e9;
+                --sky-600: #0284c7;
+                --sky-700: #0369a1;
+                --stone-50: #fafaf9;
+                --stone-100: #f5f5f4;
+                --stone-200: #e7e5e4;
+                --stone-300: #d6d3d1;
+                --stone-400: #a8a29e;
+                --stone-500: #78716c;
+                --stone-600: #57534e;
+                --stone-700: #44403c;
+                --stone-800: #292524;
+                --stone-900: #1c1917;
+                --emerald-50: #ecfdf5;
+                --emerald-100: #d1fae5;
+                --emerald-200: #a7f3d0;
+                --emerald-500: #10b981;
+                --emerald-600: #059669;
+                --emerald-700: #047857;
+                --amber-50: #fffbeb;
+                --amber-100: #fef3c7;
+                --amber-600: #d97706;
+                --red-50: #fef2f2;
+                --red-100: #fee2e2;
+                --red-500: #ef4444;
+                --red-600: #dc2626;
+                --sidebar-width: 260px;
+                --header-height: 56px;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    "Helvetica Neue", Arial, sans-serif;
+                font-size: 15px;
+                line-height: 1.7;
+                color: var(--stone-800);
+                background: #fff;
+            }
+
+            /* ─── Header ─────────────────────────────────────── */
+            .top-header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: var(--header-height);
+                background: #fff;
+                border-bottom: 1px solid var(--stone-100);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 20px;
+                z-index: 100;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            }
+            .header-brand {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                text-decoration: none;
+            }
+
+            .header-name {
+                font-size: 16px;
+                font-weight: 700;
+                color: var(--stone-900);
+                letter-spacing: -0.3px;
+            }
+            .header-name span {
+                color: var(--sky-500);
+            }
+            .btn-menu {
+                display: none;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 6px;
+                color: var(--stone-600);
+                margin-right: 8px;
+            }
+
+            /* ─── Layout ─────────────────────────────────────── */
+            .layout {
+                display: flex;
+                margin-top: var(--header-height);
+                min-height: calc(100vh - var(--header-height));
+            }
+
+            /* ─── Sidebar ────────────────────────────────────── */
+            .sidebar {
+                width: var(--sidebar-width);
+                flex-shrink: 0;
+                border-right: 1px solid var(--stone-100);
+                padding: 20px 12px;
+                position: sticky;
+                top: var(--header-height);
+                height: calc(100vh - var(--header-height));
+                overflow-y: auto;
+                background: var(--stone-50);
+            }
+            .sidebar::-webkit-scrollbar {
+                width: 4px;
+            }
+            .sidebar::-webkit-scrollbar-thumb {
+                background: var(--stone-200);
+                border-radius: 4px;
+            }
+            .sidebar-section-label {
+                font-size: 10px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: var(--stone-400);
+                padding: 16px 8px 6px;
+                margin-top: 4px;
+            }
+            .sidebar-section-label:first-child {
+                padding-top: 4px;
+            }
+            .nav-item {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                width: 100%;
+                padding: 7px 10px;
+                border: none;
+                background: none;
+                cursor: pointer;
+                font-size: 13.5px;
+                color: var(--stone-600);
+                border-radius: 7px;
+                text-align: left;
+                transition: all 0.15s;
+            }
+            .nav-item:hover {
+                background: var(--stone-100);
+                color: var(--stone-800);
+            }
+            .nav-item.active {
+                background: var(--sky-50);
+                color: var(--sky-700);
+                font-weight: 600;
+            }
+            .nav-dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: var(--stone-300);
+                flex-shrink: 0;
+                transition: background 0.15s;
+            }
+            .nav-item.active .nav-dot,
+            .nav-item:hover .nav-dot {
+                background: var(--sky-400);
+            }
+
+            /* ─── Main Content ───────────────────────────────── */
+            .main {
+                flex: 1;
+                min-width: 0;
+            }
+            .content-pane {
+                display: none;
+                padding: 40px 48px;
+                max-width: 780px;
+            }
+            .content-pane.active {
+                display: block;
+            }
+            .content-pane h1 {
+                font-size: 28px;
+                font-weight: 300;
+                color: var(--stone-900);
+                letter-spacing: -0.5px;
+                margin-bottom: 8px;
+                line-height: 1.2;
+            }
+            .content-pane h1 em {
+                font-style: italic;
+                color: var(--sky-500);
+            }
+            .page-intro {
+                font-size: 15px;
+                color: var(--stone-500);
+                margin-bottom: 28px;
+                max-width: 560px;
+            }
+            .content-pane h2 {
+                font-size: 17px;
+                font-weight: 600;
+                color: var(--stone-800);
+                margin: 28px 0 10px;
+                padding-bottom: 6px;
+                border-bottom: 1.5px solid var(--stone-100);
+            }
+            .content-pane p {
+                margin-bottom: 12px;
+                color: var(--stone-700);
+            }
+            .content-pane ul,
+            .content-pane ol {
+                padding-left: 20px;
+                margin-bottom: 14px;
+            }
+            .content-pane li {
+                margin-bottom: 5px;
+                color: var(--stone-700);
+            }
+            .content-pane li strong {
+                color: var(--stone-900);
+            }
+            code {
+                font-family:
+                    "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+                    monospace;
+                font-size: 0.85em;
+                background: var(--stone-100);
+                color: var(--stone-700);
+                padding: 1px 5px;
+                border-radius: 4px;
+            }
+            .steps {
+                list-style: none;
+                padding-left: 0;
+                counter-reset: step;
+            }
+            .steps li {
+                counter-increment: step;
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 5px 0;
+            }
+            .steps li::before {
+                content: counter(step);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 22px;
+                height: 22px;
+                border-radius: 50%;
+                background: var(--sky-100);
+                color: var(--sky-700);
+                font-size: 11px;
+                font-weight: 700;
+                margin-top: 2px;
+            }
+            .section-divider {
+                border: none;
+                border-top: 1.5px solid var(--stone-100);
+                margin: 28px 0;
+            }
+            .breadcrumb {
+                font-size: 11px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: var(--stone-400);
+                margin-bottom: 10px;
+            }
+
+            /* ─── Callouts ───────────────────────────────────── */
+            .callout {
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 14px 16px;
+                border-radius: 10px;
+                margin: 16px 0;
+                border: 1px solid;
+            }
+            .callout-icon {
+                font-size: 18px;
+                flex-shrink: 0;
+                line-height: 1.4;
+            }
+            .callout.info {
+                background: var(--sky-50);
+                border-color: var(--sky-200);
+                color: var(--sky-700);
+            }
+            .callout.tip {
+                background: var(--emerald-50);
+                border-color: var(--emerald-200);
+                color: var(--emerald-700);
+            }
+            .callout.demo {
+                background: var(--amber-50);
+                border-color: var(--amber-100);
+                color: var(--amber-600);
+            }
+            .callout p {
+                margin: 0;
+                color: inherit;
+            }
+
+            /* ─── Tables ─────────────────────────────────────── */
+            .content-pane table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 16px 0;
+                font-size: 14px;
+            }
+            .content-pane thead th {
+                background: var(--stone-50);
+                padding: 9px 14px;
+                text-align: left;
+                font-size: 12px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                color: var(--stone-500);
+                border-bottom: 1.5px solid var(--stone-200);
+            }
+            .content-pane tbody td {
+                padding: 10px 14px;
+                border-bottom: 1px solid var(--stone-100);
+                vertical-align: top;
+            }
+            .content-pane tbody tr:last-child td {
+                border-bottom: none;
+            }
+            .content-pane tbody tr:hover td {
+                background: var(--stone-50);
+            }
+
+            /* ─── Legend ─────────────────────────────────────── */
+            .legend {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 16px;
+                margin: 14px 0;
+            }
+            .legend-item {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                font-size: 13px;
+                color: var(--stone-600);
+            }
+            .legend-dot {
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 12px;
+                font-weight: 700;
+            }
+
+            /* ─── Mockup ─────────────────────────────────────── */
+            .mockup {
+                border: 1.5px solid var(--stone-200);
+                border-radius: 12px;
+                overflow: hidden;
+                margin: 18px 0;
+            }
+            .mockup-bar {
+                background: var(--stone-100);
+                padding: 8px 14px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                border-bottom: 1px solid var(--stone-200);
+            }
+            .mockup-dots {
+                display: flex;
+                gap: 5px;
+            }
+            .mockup-dots span {
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background: var(--stone-300);
+                display: block;
+            }
+            .mockup-label {
+                font-size: 11px;
+                color: var(--stone-400);
+                font-weight: 500;
+            }
+            .mockup-body {
+                padding: 16px;
+                background: #fff;
+            }
+            .mu-row {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 8px;
+            }
+            .mu-row:last-child {
+                margin-bottom: 0;
+            }
+            .mu-label {
+                font-size: 12px;
+                color: var(--stone-500);
+                min-width: 60px;
+            }
+            .mu-input {
+                flex: 1;
+                padding: 6px 10px;
+                background: var(--stone-50);
+                border: 1.5px solid var(--stone-200);
+                border-radius: 6px;
+                font-size: 13px;
+                color: var(--stone-800);
+            }
+            .mu-input.focus {
+                border-color: var(--sky-400);
+                background: var(--sky-50);
+            }
+            .mu-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                padding: 5px 12px;
+                border-radius: 6px;
+                font-size: 12px;
+                font-weight: 600;
+                white-space: nowrap;
+                cursor: default;
+            }
+            .mu-btn.primary {
+                background: var(--sky-500);
+                color: #fff;
+            }
+            .mu-btn.secondary {
+                background: var(--stone-100);
+                color: var(--stone-700);
+                border: 1px solid var(--stone-200);
+            }
+            .mu-btn.success {
+                background: var(--emerald-500);
+                color: #fff;
+            }
+            .mu-btn.danger {
+                background: var(--red-50);
+                color: var(--red-600);
+                border: 1px solid var(--red-100);
+            }
+            .mu-checkbox {
+                width: 18px;
+                height: 18px;
+                border-radius: 4px;
+                background: var(--sky-500);
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 11px;
+                flex-shrink: 0;
+            }
+            .mu-checkbox.unchecked {
+                background: var(--stone-100);
+                border: 1.5px solid var(--stone-300);
+                color: transparent;
+            }
+            .mu-badge {
+                display: inline-flex;
+                align-items: center;
+                padding: 2px 8px;
+                border-radius: 99px;
+                font-size: 11px;
+                font-weight: 600;
+            }
+            .mu-badge.green {
+                background: var(--emerald-100);
+                color: var(--emerald-700);
+            }
+            .mu-badge.blue {
+                background: var(--sky-100);
+                color: var(--sky-700);
+            }
+            .mu-badge.red {
+                background: var(--red-100);
+                color: var(--red-600);
+            }
+            .mu-badge.amber {
+                background: var(--amber-100);
+                color: var(--amber-600);
+            }
+            .mu-badge.gray {
+                background: var(--stone-100);
+                color: var(--stone-500);
+            }
+            .mu-card {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px 12px;
+                border: 1.5px solid var(--stone-200);
+                border-radius: 8px;
+                margin-bottom: 8px;
+                background: #fff;
+            }
+            .mu-card:last-child {
+                margin-bottom: 0;
+            }
+            .mu-avatar {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background: var(--sky-100);
+                color: var(--sky-700);
+                font-size: 10px;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .mu-icon {
+                width: 30px;
+                height: 30px;
+                border-radius: 7px;
+                background: var(--sky-50);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 15px;
+                flex-shrink: 0;
+            }
+            .mu-status {
+                width: 26px;
+                height: 26px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 11px;
+                font-weight: 700;
+            }
+            .mu-status.green {
+                background: var(--emerald-100);
+                color: var(--emerald-700);
+            }
+            .mu-status.blue {
+                background: var(--sky-100);
+                color: var(--sky-600);
+            }
+            .mu-status.gray {
+                background: var(--stone-100);
+                color: var(--stone-500);
+            }
+            .mu-nav {
+                display: flex;
+                align-items: center;
+                gap: 2px;
+                padding: 8px 10px;
+                border-bottom: 1px solid var(--stone-100);
+                background: var(--stone-50);
+            }
+            .mu-nav-item {
+                padding: 5px 10px;
+                border-radius: 6px;
+                font-size: 12px;
+                color: var(--stone-500);
+                cursor: default;
+            }
+            .mu-nav-item.active {
+                background: var(--sky-50);
+                color: var(--sky-700);
+                font-weight: 600;
+            }
+            .mu-table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 12px;
+            }
+            .mu-table th {
+                padding: 7px 10px;
+                background: var(--stone-50);
+                font-weight: 600;
+                font-size: 11px;
+                color: var(--stone-500);
+                border-bottom: 1.5px solid var(--stone-200);
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+            .mu-table td {
+                padding: 8px 10px;
+                border-bottom: 1px solid var(--stone-100);
+            }
+            .mu-table tr:last-child td {
+                border-bottom: none;
+            }
+            .mu-divider {
+                border: none;
+                border-top: 1px solid var(--stone-100);
+                margin: 8px 0;
+            }
+            .mu-section-title {
+                font-size: 11px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: var(--stone-400);
+                margin-bottom: 8px;
+            }
+            .mu-progress {
+                height: 6px;
+                background: var(--stone-100);
+                border-radius: 99px;
+                overflow: hidden;
+            }
+            .mu-progress-bar {
+                height: 100%;
+                background: var(--emerald-500);
+                border-radius: 99px;
+            }
+            .mu-link-box {
+                flex: 1;
+                font-size: 11px;
+                font-family: monospace;
+                color: var(--sky-600);
+                background: var(--sky-50);
+                padding: 4px 8px;
+                border-radius: 5px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            /* ─── Back to top ────────────────────────────────── */
+            #back-to-top {
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                width: 38px;
+                height: 38px;
+                background: var(--stone-800);
+                color: #fff;
+                border: none;
+                border-radius: 50%;
+                font-size: 16px;
+                cursor: pointer;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                z-index: 99;
+            }
+            #back-to-top.visible {
+                display: flex;
+            }
+
+            /* ─── Sidebar overlay (mobile) ───────────────────── */
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.3);
+                z-index: 90;
+            }
+            .sidebar-overlay.open {
+                display: block;
+            }
+
+            /* ─── Progress bar ───────────────────────────────── */
+            #progress-bar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 3px;
+                background: var(--sky-500);
+                z-index: 200;
+                transition: width 0.1s;
+            }
+
+            /* ─── Responsive ─────────────────────────────────── */
+            @media (max-width: 680px) {
+                .sidebar {
+                    position: fixed;
+                    top: var(--header-height);
+                    left: 0;
+                    bottom: 0;
+                    z-index: 95;
+                    transform: translateX(-100%);
+                    transition: transform 0.25s ease;
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+                .main {
+                    width: 100%;
+                }
+                .btn-menu {
+                    display: flex;
+                }
+                .content-pane {
+                    padding: 24px 20px;
+                }
+            }
+            /* ─── Next page card ─────────────────────────────── */
+            .next-page-card {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                margin-top: 48px;
+                padding: 18px 22px;
+                border: 1.5px solid var(--sky-200);
+                border-radius: 12px;
+                background: var(--sky-50);
+                cursor: pointer;
+                text-align: left;
+                width: 100%;
+                font-family: inherit;
+                transition: all 0.15s;
+            }
+            .next-page-card:hover {
+                border-color: var(--sky-400);
+                background: var(--sky-100);
+                transform: translateY(-1px);
+                box-shadow: 0 4px 16px rgba(14, 165, 233, 0.12);
+            }
+            .next-page-card-label {
+                font-size: 11px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: var(--sky-500);
+                margin-bottom: 4px;
+            }
+            .next-page-card-title {
+                font-size: 15px;
+                font-weight: 600;
+                color: var(--sky-700);
+            }
+            .next-page-card-arrow {
+                font-size: 20px;
+                color: var(--sky-400);
+                flex-shrink: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- ══════════════════ APP SHELL ═══════════════════════════════ -->
+        <div id="progress-bar" style="width: 0%"></div>
+
+        <header class="top-header">
+            <div style="display: flex; align-items: center">
+                <button
+                    class="btn-menu"
+                    id="btn-menu"
+                    onclick="toggleSidebar()"
+                    aria-label="Menü"
+                >
+                    <svg
+                        width="20"
+                        height="20"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M4 6h16M4 12h16M4 18h16"
+                        />
+                    </svg>
+                </button>
+                <a class="header-brand" href="#">
+                    <svg
+                        width="32"
+                        height="32"
+                        viewBox="190 60 370 220"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <g transform="translate(190, 60)">
+                            <path
+                                d="M 55 55 L 55 130 Q 55 195 120 195 Q 185 195 185 130 L 185 120 Q 185 55 250 55 Q 315 55 315 120 L 315 195"
+                                style="
+                                    fill: none;
+                                    stroke: #0ea5e9;
+                                    stroke-width: 52px;
+                                    stroke-linecap: round;
+                                    stroke-linejoin: round;
+                                "
+                            />
+                            <circle
+                                cx="55"
+                                cy="55"
+                                r="34"
+                                style="fill: #0ea5e9"
+                            />
+                            <circle
+                                cx="315"
+                                cy="195"
+                                r="34"
+                                style="fill: #0ea5e9"
+                            />
+                        </g>
+                    </svg>
+                    <span class="header-name"
+                        >Learning<span>Line</span>
+                        <span
+                            style="
+                                font-size: 12px;
+                                font-weight: 400;
+                                color: var(--stone-400);
+                                margin-left: 4px;
+                            "
+                            >Wiki</span
+                        >
+                    </span>
+                </a>
+            </div>
+        </header>
+
+        <div
+            class="sidebar-overlay"
+            id="sidebar-overlay"
+            onclick="toggleSidebar()"
+        ></div>
+
+        <div class="layout">
+            <!-- ═══ SIDEBAR ═══════════════════════════════════════════════ -->
+            <nav class="sidebar" id="sidebar">
+                <div class="sidebar-section-label" style="padding-top: 4px">
+                    Zugang
+                </div>
+                <button class="nav-item active" onclick="showPane('login')">
+                    <span class="nav-dot"></span>Login
+                </button>
+                <button class="nav-item" onclick="showPane('register')">
+                    <span class="nav-dot"></span>Registrierung
+                </button>
+                <div class="sidebar-section-label">Kurse</div>
+                <button class="nav-item" onclick="showPane('course-detail')">
+                    <span class="nav-dot"></span>Kurs Details
+                </button>
+                <div class="sidebar-section-label">Fortschritt</div>
+                <button class="nav-item" onclick="showPane('progress-course')">
+                    <span class="nav-dot"></span>Fortschritt – Kursebene
+                </button>
+                <button class="nav-item" onclick="showPane('progress-task')">
+                    <span class="nav-dot"></span>Fortschritt – Aufgabenebene
+                </button>
+            </nav>
+
+            <!-- ═══ MAIN ═══════════════════════════════════════════════════ -->
+            <main class="main" id="main-content">
+                <!-- ╔═══════════════════════════════════════════════════════╗ -->
+                <!-- ║  LOGIN                                                ║ -->
+                <!-- ╚═══════════════════════════════════════════════════════╝ -->
+                <div class="content-pane active" id="pane-login">
+                    <div class="breadcrumb">Zugang</div>
+                    <h1>Login mit <em>Magic Link</em></h1>
+                    <p class="page-intro">
+                        LearningLine verwendet passwortlose Anmeldung – du
+                        bekommst bei jedem Login einen sicheren Einmal-Link per
+                        E-Mail.
+                    </p>
+
+                    <h2>Wie funktioniert der Login?</h2>
+                    <ol class="steps">
+                        <li>
+                            Öffne die LearningLine-Webseite und klicke auf
+                            <strong>„Anmelden"</strong>.
+                        </li>
+                        <li>Gib deine <strong>E-Mail-Adresse</strong> ein.</li>
+                        <li>
+                            Klicke auf <strong>„Mit E-Mail anmelden"</strong>.
+                        </li>
+                        <li>
+                            Öffne dein E-Mail-Postfach und klicke auf den
+                            <strong>Magic Link</strong>.
+                        </li>
+                        <li>
+                            Du bist eingeloggt und wirst automatisch
+                            weitergeleitet.
+                        </li>
+                    </ol>
+
+                    <div class="callout info">
+                        <div class="callout-icon">⏱️</div>
+                        <p>
+                            Der Magic Link ist zeitlich begrenzt. Falls er
+                            abgelaufen ist, starte den Anmeldeprozess einfach
+                            erneut.
+                        </p>
+                    </div>
+
+                    <div class="callout demo">
+                        <div class="callout-icon">🧪</div>
+                        <p>
+                            <strong>Demo-Instanz:</strong> Es wird keine echte
+                            E-Mail versendet. Nach dem Klick auf „Mit E-Mail
+                            anmelden" erscheint direkt auf der Login-Seite ein
+                            <strong>grüner Banner</strong> mit einem Link zur
+                            Demo-Mailbox (<code>/dev/mailbox</code>). Öffne
+                            diese, klicke auf die E-Mail und dann auf den Magic
+                            Link.
+                        </p>
+                    </div>
+
+                    <!-- MOCKUP: Login-Formular -->
+                    <div class="mockup">
+                        <div class="mockup-bar">
+                            <div class="mockup-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="mockup-label"
+                                >Mockup · Login-Seite</span
+                            >
+                        </div>
+                        <div class="mockup-body">
+                            <div class="mu-row">
+                                <span class="mu-label">E-Mail</span>
+                                <div class="mu-input focus">
+                                    maria@schule.ch
+                                </div>
+                            </div>
+                            <div
+                                class="mu-row"
+                                style="justify-content: flex-end"
+                            >
+                                <div class="mu-btn primary">
+                                    Mit E-Mail anmelden →
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MOCKUP: Demo-Banner nach Absenden -->
+                    <div class="mockup">
+                        <div class="mockup-bar">
+                            <div class="mockup-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="mockup-label"
+                                >Mockup · Login-Seite nach Absenden (Demo)</span
+                            >
+                        </div>
+                        <div class="mockup-body">
+                            <div class="mu-row">
+                                <span class="mu-label">E-Mail</span>
+                                <div class="mu-input">maria@schule.ch</div>
+                                <div
+                                    class="mu-btn secondary"
+                                    style="opacity: 0.6"
+                                >
+                                    ✓ Gesendet
+                                </div>
+                            </div>
+                            <div
+                                style="
+                                    margin-top: 10px;
+                                    padding: 12px 14px;
+                                    background: #ecfdf5;
+                                    border: 1px solid #a7f3d0;
+                                    border-radius: 8px;
+                                    display: flex;
+                                    gap: 10px;
+                                    align-items: flex-start;
+                                "
+                            >
+                                <span style="font-size: 18px">✅</span>
+                                <div>
+                                    <div
+                                        style="
+                                            font-size: 13px;
+                                            font-weight: 600;
+                                            color: #047857;
+                                        "
+                                    >
+                                        Demo – E-Mail abgefangen
+                                    </div>
+                                    <div
+                                        style="
+                                            font-size: 12px;
+                                            color: #059669;
+                                            margin-top: 2px;
+                                        "
+                                    >
+                                        Magic Link für
+                                        <strong>maria@schule.ch</strong> bereit.
+                                    </div>
+                                    <div
+                                        class="mu-btn success"
+                                        style="margin-top: 8px; font-size: 11px"
+                                    >
+                                        📬 /dev/mailbox öffnen
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MOCKUP: Demo-Mailbox -->
+                    <div class="mockup">
+                        <div class="mockup-bar">
+                            <div class="mockup-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span
+                                style="
+                                    font-size: 11px;
+                                    color: #a8a29e;
+                                    flex: 1;
+                                    text-align: center;
+                                    font-family: monospace;
+                                "
+                                >localhost:4000/dev/mailbox</span
+                            ><span class="mockup-label"
+                                >Mockup · Demo-Mailbox</span
+                            >
+                        </div>
+                        <div class="mockup-body">
+                            <div class="mu-section-title">
+                                Posteingang (Demo)
+                            </div>
+                            <div
+                                class="mu-card"
+                                style="
+                                    background: #f0f9ff;
+                                    border-color: #bae6fd;
+                                "
+                            >
+                                <div class="mu-icon">✉️</div>
+                                <div style="flex: 1">
+                                    <div
+                                        style="
+                                            font-size: 13px;
+                                            font-weight: 600;
+                                            color: #0369a1;
+                                        "
+                                    >
+                                        Dein LearningLine Magic Link
+                                    </div>
+                                    <div
+                                        style="font-size: 12px; color: #0ea5e9"
+                                    >
+                                        An: maria@schule.ch · gerade eben
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                style="
+                                    margin-top: 12px;
+                                    padding: 12px 14px;
+                                    background: #fafaf9;
+                                    border: 1px solid #e7e5e4;
+                                    border-radius: 8px;
+                                "
+                            >
+                                <div
+                                    style="
+                                        font-size: 12px;
+                                        color: #57534e;
+                                        margin-bottom: 10px;
+                                    "
+                                >
+                                    Klicke auf den Link unten, um dich
+                                    anzumelden:
+                                </div>
+                                <div
+                                    class="mu-btn primary"
+                                    style="font-size: 12px"
+                                >
+                                    🔗 Jetzt anmelden →
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="section-divider" />
+                    <h2>Abmelden</h2>
+                    <p>
+                        Klicke oben rechts in der Navigation auf den Menüpunkt
+                        <strong>„Abmelden"</strong>.
+                    </p>
+
+                    <button
+                        class="next-page-card"
+                        onclick="showPane('register')"
+                    >
+                        <div>
+                            <div class="next-page-card-label">
+                                Nächste Seite
+                            </div>
+                            <div class="next-page-card-title">
+                                Registrierung
+                            </div>
+                        </div>
+                        <div class="next-page-card-arrow">→</div>
+                    </button>
+                </div>
+
+                <!-- ╔═══════════════════════════════════════════════════════╗ -->
+                <!-- ║  REGISTRIERUNG                                        ║ -->
+                <!-- ╚═══════════════════════════════════════════════════════╝ -->
+                <div class="content-pane" id="pane-register">
+                    <div class="breadcrumb">Zugang</div>
+                    <h1>Registrierung bei <em>LearningLine</em></h1>
+                    <p class="page-intro">
+                        Die Registrierung unterscheidet sich leicht je nach
+                        Rolle – wähle den passenden Abschnitt.
+                    </p>
+
+                    <h2>Als Lehrperson registrieren</h2>
+                    <ol class="steps">
+                        <li>
+                            Öffne die LearningLine-Webseite und klicke auf
+                            <strong>„Jetzt registrieren"</strong>.
+                        </li>
+                        <li>
+                            Fülle das Formular aus: <strong>Vorname</strong>,
+                            <strong>Nachname</strong> und
+                            <strong>E-Mail-Adresse</strong>.
+                        </li>
+                        <li>
+                            Aktiviere die Checkbox
+                            <strong>„Ich bin eine Lehrperson"</strong>.
+                        </li>
+                        <li>Klicke auf <strong>„Konto erstellen"</strong>.</li>
+                        <li>
+                            Du erhältst eine E-Mail mit einem
+                            <strong>Magic Link</strong> – klicke diesen an.
+                        </li>
+                    </ol>
+
+                    <div class="callout demo">
+                        <div class="callout-icon">🧪</div>
+                        <p>
+                            <strong>Demo-Instanz:</strong> Keine echten E-Mails.
+                            Nach der Registrierung erscheint direkt auf der
+                            Seite ein Link
+                            <strong>„/dev/mailbox öffnen"</strong> – klicke
+                            darauf, um den Magic Link abzurufen.
+                        </p>
+                    </div>
+
+                    <!-- MOCKUP: Registrierung Lehrperson -->
+                    <div class="mockup">
+                        <div class="mockup-bar">
+                            <div class="mockup-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="mockup-label"
+                                >Mockup · Registrierung Lehrperson</span
+                            >
+                        </div>
+                        <div class="mockup-body">
+                            <div class="mu-row">
+                                <span class="mu-label">Vorname</span>
+                                <div class="mu-input">Maria</div>
+                            </div>
+                            <div class="mu-row">
+                                <span class="mu-label">Nachname</span>
+                                <div class="mu-input">Muster</div>
+                            </div>
+                            <div class="mu-row">
+                                <span class="mu-label">E-Mail</span>
+                                <div class="mu-input focus">
+                                    maria@schule.ch
+                                </div>
+                            </div>
+                            <hr class="mu-divider" />
+                            <div class="mu-row">
+                                <div class="mu-checkbox">✓</div>
+                                <span
+                                    style="
+                                        font-size: 13px;
+                                        color: #1c1917;
+                                        font-weight: 600;
+                                    "
+                                    >Ich bin eine Lehrperson</span
+                                >
+                                <span
+                                    class="mu-badge blue"
+                                    style="margin-left: auto"
+                                    >Lehrperson-Konto</span
+                                >
+                            </div>
+                            <hr class="mu-divider" />
+                            <div
+                                class="mu-row"
+                                style="justify-content: flex-end"
+                            >
+                                <div class="mu-btn primary">
+                                    Konto erstellen
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="section-divider" />
+                    <h2>Als Lernende/r registrieren</h2>
+                    <p>
+                        Lernende registrieren sich idealerweise über einen
+                        <strong>Einladungslink</strong> der Lehrperson. Damit
+                        wird die Klasse automatisch zugewiesen.
+                    </p>
+                    <ol class="steps">
+                        <li>
+                            Öffne den <strong>Einladungslink</strong> der
+                            Lehrperson (z.B.
+                            <code
+                                >https://learningline.app/users/register?class=3a</code
+                            >).
+                        </li>
+                        <li>
+                            Fülle das Formular aus: <strong>Vorname</strong>,
+                            <strong>Nachname</strong> und
+                            <strong>E-Mail-Adresse</strong>.
+                        </li>
+                        <li>
+                            Das <strong>Klassenfeld</strong> ist bereits
+                            automatisch ausgefüllt – nichts ändern.
+                        </li>
+                        <li>Klicke auf <strong>„Konto erstellen"</strong>.</li>
+                        <li>
+                            Du erhältst eine E-Mail mit einem
+                            <strong>Magic Link</strong> – klicke diesen an.
+                        </li>
+                    </ol>
+
+                    <div class="callout tip">
+                        <div class="callout-icon">💡</div>
+                        <p>
+                            Wenn du den Einladungslink deiner Lehrperson
+                            verwendest, wird deine Klasse automatisch
+                            eingetragen – du musst nichts manuell ausfüllen.
+                        </p>
+                    </div>
+
+                    <div class="callout demo">
+                        <div class="callout-icon">🧪</div>
+                        <p>
+                            <strong>Demo-Instanz:</strong> Keine echten E-Mails.
+                            Nach der Registrierung erscheint direkt auf der
+                            Seite ein Link
+                            <strong>„/dev/mailbox öffnen"</strong> – klicke
+                            darauf, um den Magic Link abzurufen.
+                        </p>
+                    </div>
+
+                    <!-- MOCKUP: Registrierung Lernende/r -->
+                    <div class="mockup">
+                        <div class="mockup-bar">
+                            <div class="mockup-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="mockup-label"
+                                >Mockup · Registrierung Lernende/r</span
+                            >
+                        </div>
+                        <div class="mockup-body">
+                            <div class="mu-row">
+                                <span class="mu-label">Vorname</span>
+                                <div class="mu-input">Jonas</div>
+                            </div>
+                            <div class="mu-row">
+                                <span class="mu-label">Nachname</span>
+                                <div class="mu-input">Müller</div>
+                            </div>
+                            <div class="mu-row">
+                                <span class="mu-label">E-Mail</span>
+                                <div class="mu-input focus">
+                                    jonas@schule.ch
+                                </div>
+                            </div>
+                            <div class="mu-row">
+                                <span class="mu-label">Klasse</span>
+                                <div
+                                    class="mu-input"
+                                    style="background: #f5f5f4; color: #78716c"
+                                >
+                                    3a &nbsp;<span class="mu-badge green"
+                                        >automatisch ausgefüllt</span
+                                    >
+                                </div>
+                            </div>
+                            <hr class="mu-divider" />
+                            <div class="mu-row">
+                                <div class="mu-checkbox unchecked">✓</div>
+                                <span style="font-size: 13px; color: #78716c"
+                                    >Ich bin eine Lehrperson</span
+                                >
+                            </div>
+                            <hr class="mu-divider" />
+                            <div
+                                class="mu-row"
+                                style="justify-content: flex-end"
+                            >
+                                <div class="mu-btn primary">
+                                    Konto erstellen
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button
+                        class="next-page-card"
+                        onclick="showPane('course-detail')"
+                    >
+                        <div>
+                            <div class="next-page-card-label">
+                                Nächste Seite
+                            </div>
+                            <div class="next-page-card-title">Kurs Details</div>
+                        </div>
+                        <div class="next-page-card-arrow">→</div>
+                    </button>
+                </div>
+
+                <!-- ╔═══════════════════════════════════════════════════════╗ -->
+                <!-- ║  KURS DETAILS                                         ║ -->
+                <!-- ╚═══════════════════════════════════════════════════════╝ -->
+                <div class="content-pane" id="pane-course-detail">
+                    <div class="breadcrumb">Kurse</div>
+                    <h1>Kurs <em>Details</em></h1>
+                    <p class="page-intro">
+                        Die Kursdetail-Seite ist die zentrale Anlaufstelle für
+                        einen Kurs – sowohl für Lehrpersonen als auch für
+                        Lernende.
+                    </p>
+
+                    <h2>Ansicht für Lehrpersonen</h2>
+                    <p>
+                        Wenn du als Lehrperson einen Kurs öffnest, siehst du
+                        zwei Aktionskarten sowie die Liste aller Lerneinheiten:
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>Fortschritt anzeigen</strong> –
+                            Bearbeitungsstand aller eingeschriebenen Lernenden
+                        </li>
+                        <li>
+                            <strong>Lernende verwalten</strong> – Lernende ein-
+                            oder ausschreiben
+                        </li>
+                    </ul>
+
+                    <!-- MOCKUP: Kursdetail Lehrperson -->
+                    <div class="mockup">
+                        <div class="mockup-bar">
+                            <div class="mockup-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="mockup-label"
+                                >Mockup · Kursdetail-Seite (Lehrperson)</span
+                            >
+                        </div>
+                        <div class="mockup-body">
+                            <div
+                                style="
+                                    font-size: 15px;
+                                    font-weight: 700;
+                                    color: #1c1917;
+                                    margin-bottom: 4px;
+                                "
+                            >
+                                Deutsch – Aufsatz schreiben
+                            </div>
+                            <div
+                                style="
+                                    font-size: 12px;
+                                    color: #a8a29e;
+                                    margin-bottom: 14px;
+                                "
+                            >
+                                5 Lerneinheiten · maria@schule.ch
+                            </div>
+                            <div
+                                style="
+                                    display: grid;
+                                    grid-template-columns: 1fr 1fr;
+                                    gap: 10px;
+                                    margin-bottom: 16px;
+                                "
+                            >
+                                <div
+                                    style="
+                                        border: 1.5px solid #a7f3d0;
+                                        border-radius: 8px;
+                                        padding: 12px;
+                                        background: #ecfdf5;
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 8px;
+                                    "
+                                >
+                                    <span style="font-size: 20px">📊</span>
+                                    <div>
+                                        <div
+                                            style="
+                                                font-size: 12px;
+                                                font-weight: 600;
+                                                color: #047857;
+                                            "
+                                        >
+                                            Fortschritt anzeigen
+                                        </div>
+                                        <div
+                                            style="
+                                                font-size: 11px;
+                                                color: #059669;
+                                            "
+                                        >
+                                            Lernenden-Übersicht
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    style="
+                                        border: 1.5px solid #ddd6fe;
+                                        border-radius: 8px;
+                                        padding: 12px;
+                                        background: #f5f3ff;
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 8px;
+                                    "
+                                >
+                                    <span style="font-size: 20px">👥</span>
+                                    <div>
+                                        <div
+                                            style="
+                                                font-size: 12px;
+                                                font-weight: 600;
+                                                color: #6d28d9;
+                                            "
+                                        >
+                                            Lernende verwalten
+                                        </div>
+                                        <div
+                                            style="
+                                                font-size: 11px;
+                                                color: #7c3aed;
+                                            "
+                                        >
+                                            Ein-/Ausschreiben
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mu-section-title">Lerneinheiten</div>
+                            <div class="mu-card">
+                                <div class="mu-icon">📋</div>
+                                <div
+                                    style="
+                                        flex: 1;
+                                        font-size: 13px;
+                                        font-weight: 500;
+                                    "
+                                >
+                                    Einheit 1 – Einleitung
+                                </div>
+                                <span class="mu-badge green"
+                                    >veröffentlicht</span
+                                >
+                                <div
+                                    class="mu-btn secondary"
+                                    style="font-size: 11px"
+                                >
+                                    🔒 Sperren
+                                </div>
+                            </div>
+                            <div
+                                class="mu-card"
+                                style="
+                                    background: #fff7ed;
+                                    border-color: #fed7aa;
+                                "
+                            >
+                                <div
+                                    class="mu-icon"
+                                    style="background: #fee2e2"
+                                >
+                                    📋
+                                </div>
+                                <div
+                                    style="
+                                        flex: 1;
+                                        font-size: 13px;
+                                        font-weight: 500;
+                                    "
+                                >
+                                    Einheit 2 – Hauptteil
+                                </div>
+                                <span class="mu-badge red">🔒 Gesperrt</span>
+                                <div
+                                    class="mu-btn secondary"
+                                    style="font-size: 11px"
+                                >
+                                    🔓 Freigeben
+                                </div>
+                            </div>
+                            <div class="mu-card">
+                                <div class="mu-icon">📋</div>
+                                <div
+                                    style="
+                                        flex: 1;
+                                        font-size: 13px;
+                                        font-weight: 500;
+                                    "
+                                >
+                                    Einheit 3 – Schluss
+                                </div>
+                                <span class="mu-badge green"
+                                    >veröffentlicht</span
+                                >
+                                <div
+                                    class="mu-btn secondary"
+                                    style="font-size: 11px"
+                                >
+                                    🔒 Sperren
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="section-divider" />
+                    <h2>Ansicht für Lernende</h2>
+                    <p>
+                        Als Lernende/r siehst du beim Öffnen eines Kurses die
+                        Liste aller Lerneinheiten sowie deinen aktuellen
+                        Bearbeitungsstand.
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>Freigegebene Aufgaben</strong> können direkt
+                            gestartet werden.
+                        </li>
+                        <li>
+                            <strong>Gesperrte Aufgaben</strong> sind sichtbar,
+                            aber nicht klickbar – sie zeigen „Bald verfügbar".
+                        </li>
+                        <li>
+                            <strong>Abgeschlossene Aufgaben</strong> werden mit
+                            einem grünen Häkchen markiert.
+                        </li>
+                    </ul>
+
+                    <!-- MOCKUP: Kursdetail Lernende -->
+                    <div class="mockup">
+                        <div class="mockup-bar">
+                            <div class="mockup-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="mockup-label"
+                                >Mockup · Kursdetail-Seite (Lernende/r)</span
+                            >
+                        </div>
+                        <div class="mockup-body">
+                            <div
+                                style="
+                                    font-size: 15px;
+                                    font-weight: 700;
+                                    color: #1c1917;
+                                    margin-bottom: 4px;
+                                "
+                            >
+                                Deutsch – Aufsatz schreiben
+                            </div>
+                            <div
+                                style="
+                                    font-size: 12px;
+                                    color: #a8a29e;
+                                    margin-bottom: 6px;
+                                "
+                            >
+                                5 Lerneinheiten
+                            </div>
+                            <div style="margin-bottom: 14px">
+                                <div
+                                    style="
+                                        display: flex;
+                                        justify-content: space-between;
+                                        font-size: 12px;
+                                        color: #78716c;
+                                        margin-bottom: 4px;
+                                    "
+                                >
+                                    <span>Fortschritt</span
+                                    ><span>2 / 5 erledigt</span>
+                                </div>
+                                <div class="mu-progress">
+                                    <div
+                                        class="mu-progress-bar"
+                                        style="width: 40%"
+                                    ></div>
+                                </div>
+                            </div>
+                            <div
+                                class="mu-card"
+                                style="
+                                    background: #ecfdf5;
+                                    border-color: #a7f3d0;
+                                "
+                            >
+                                <div
+                                    class="mu-status green"
+                                    style="flex-shrink: 0"
+                                >
+                                    ✓
+                                </div>
+                                <div
+                                    style="
+                                        flex: 1;
+                                        font-size: 13px;
+                                        font-weight: 500;
+                                    "
+                                >
+                                    Einheit 1 – Einleitung
+                                </div>
+                                <div
+                                    class="mu-btn secondary"
+                                    style="font-size: 11px"
+                                >
+                                    📄 Anzeigen
+                                </div>
+                            </div>
+                            <div
+                                class="mu-card"
+                                style="
+                                    background: #ecfdf5;
+                                    border-color: #a7f3d0;
+                                "
+                            >
+                                <div
+                                    class="mu-status green"
+                                    style="flex-shrink: 0"
+                                >
+                                    ✓
+                                </div>
+                                <div
+                                    style="
+                                        flex: 1;
+                                        font-size: 13px;
+                                        font-weight: 500;
+                                    "
+                                >
+                                    Einheit 2 – Hauptteil
+                                </div>
+                                <div
+                                    class="mu-btn secondary"
+                                    style="font-size: 11px"
+                                >
+                                    📄 Anzeigen
+                                </div>
+                            </div>
+                            <div class="mu-card">
+                                <div
+                                    class="mu-status blue"
+                                    style="flex-shrink: 0"
+                                >
+                                    ···
+                                </div>
+                                <div
+                                    style="
+                                        flex: 1;
+                                        font-size: 13px;
+                                        font-weight: 500;
+                                    "
+                                >
+                                    Einheit 3 – Schluss
+                                </div>
+                                <div
+                                    class="mu-btn primary"
+                                    style="font-size: 11px"
+                                >
+                                    Starten →
+                                </div>
+                            </div>
+                            <div
+                                class="mu-card"
+                                style="
+                                    background: #fafaf9;
+                                    border-color: #e7e5e4;
+                                    opacity: 0.7;
+                                "
+                            >
+                                <div
+                                    class="mu-status gray"
+                                    style="flex-shrink: 0"
+                                >
+                                    🔒
+                                </div>
+                                <div
+                                    style="
+                                        flex: 1;
+                                        font-size: 13px;
+                                        color: #a8a29e;
+                                    "
+                                >
+                                    Einheit 4 – Überarbeitung
+                                </div>
+                                <span style="font-size: 11px; color: #a8a29e"
+                                    >Bald verfügbar</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="section-divider" />
+                    <h2>Kurs bearbeiten (Lehrperson)</h2>
+                    <p>
+                        Klicke in der Kursliste auf
+                        <strong>„Bearbeiten"</strong> neben dem Kurs, um Name,
+                        Beschreibung oder Lerneinheiten anzupassen.
+                    </p>
+
+                    <button
+                        class="next-page-card"
+                        onclick="showPane('progress-course')"
+                    >
+                        <div>
+                            <div class="next-page-card-label">
+                                Nächste Seite
+                            </div>
+                            <div class="next-page-card-title">
+                                Fortschritt – Kursebene
+                            </div>
+                        </div>
+                        <div class="next-page-card-arrow">→</div>
+                    </button>
+                </div>
+
+                <!-- ╔═══════════════════════════════════════════════════════╗ -->
+                <!-- ║  FORTSCHRITT – KURSEBENE                              ║ -->
+                <!-- ╚═══════════════════════════════════════════════════════╝ -->
+                <div class="content-pane" id="pane-progress-course">
+                    <div class="breadcrumb">Fortschritt</div>
+                    <h1>Fortschritt – <em>Kursebene</em></h1>
+                    <p class="page-intro">
+                        Die Fortschrittsübersicht auf Kursebene zeigt auf einen
+                        Blick, welche Lernenden welche Aufgaben bereits erledigt
+                        haben.
+                    </p>
+
+                    <h2>Fortschrittsübersicht öffnen</h2>
+                    <ol class="steps">
+                        <li>Öffne den gewünschten Kurs.</li>
+                        <li>
+                            Klicke auf die Karte
+                            <strong>„Fortschritt anzeigen"</strong>.
+                        </li>
+                        <li>
+                            Es erscheint eine Tabelle:
+                            <strong>Zeilen = Aufgaben</strong>,
+                            <strong>Spalten = Lernende</strong>.
+                        </li>
+                        <li>
+                            Klicke auf eine Aufgabe in der Tabelle, um die
+                            Detailansicht zu öffnen.
+                        </li>
+                    </ol>
+
+                    <h2>Statusanzeige</h2>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div
+                                class="legend-dot"
+                                style="background: #10b981; color: #fff"
+                            >
+                                ✓
+                            </div>
+                            <span>Abgeschlossen</span>
+                        </div>
+                        <div class="legend-item">
+                            <div
+                                class="legend-dot"
+                                style="
+                                    background: #0ea5e9;
+                                    color: #fff;
+                                    font-size: 10px;
+                                "
+                            >
+                                ···
+                            </div>
+                            <span>In Bearbeitung</span>
+                        </div>
+                        <div class="legend-item">
+                            <div
+                                class="legend-dot"
+                                style="background: #d6d3d1; color: #78716c"
+                            >
+                                –
+                            </div>
+                            <span>Nicht begonnen</span>
+                        </div>
+                    </div>
+
+                    <!-- MOCKUP: Fortschritts-Tabelle Kursebene -->
+                    <div class="mockup">
+                        <div class="mockup-bar">
+                            <div class="mockup-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="mockup-label"
+                                >Mockup · Fortschritts-Tabelle (Kursebene)</span
+                            >
+                        </div>
+                        <div
+                            class="mockup-body"
+                            style="padding: 0; overflow-x: auto"
+                        >
+                            <table class="mu-table">
+                                <thead>
+                                    <tr>
+                                        <th style="min-width: 150px">
+                                            Aufgabe
+                                        </th>
+                                        <th style="text-align: center">
+                                            <div
+                                                style="
+                                                    display: flex;
+                                                    flex-direction: column;
+                                                    align-items: center;
+                                                    gap: 3px;
+                                                "
+                                            >
+                                                <div
+                                                    class="mu-avatar"
+                                                    style="
+                                                        width: 26px;
+                                                        height: 26px;
+                                                        font-size: 10px;
+                                                    "
+                                                >
+                                                    JM
+                                                </div>
+                                                <span>jonas.m</span>
+                                            </div>
+                                        </th>
+                                        <th style="text-align: center">
+                                            <div
+                                                style="
+                                                    display: flex;
+                                                    flex-direction: column;
+                                                    align-items: center;
+                                                    gap: 3px;
+                                                "
+                                            >
+                                                <div
+                                                    class="mu-avatar"
+                                                    style="
+                                                        width: 26px;
+                                                        height: 26px;
+                                                        font-size: 10px;
+                                                    "
+                                                >
+                                                    AL
+                                                </div>
+                                                <span>anna.l</span>
+                                            </div>
+                                        </th>
+                                        <th style="text-align: center">
+                                            <div
+                                                style="
+                                                    display: flex;
+                                                    flex-direction: column;
+                                                    align-items: center;
+                                                    gap: 3px;
+                                                "
+                                            >
+                                                <div
+                                                    class="mu-avatar"
+                                                    style="
+                                                        width: 26px;
+                                                        height: 26px;
+                                                        font-size: 10px;
+                                                    "
+                                                >
+                                                    TK
+                                                </div>
+                                                <span>tim.k</span>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Einleitung schreiben</td>
+                                        <td style="text-align: center">
+                                            <div
+                                                class="mu-status green"
+                                                style="margin: 0 auto"
+                                            >
+                                                ✓
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <div
+                                                class="mu-status green"
+                                                style="margin: 0 auto"
+                                            >
+                                                ✓
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <div
+                                                class="mu-status blue"
+                                                style="margin: 0 auto"
+                                            >
+                                                ···
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hauptteil ausbauen</td>
+                                        <td style="text-align: center">
+                                            <div
+                                                class="mu-status blue"
+                                                style="margin: 0 auto"
+                                            >
+                                                ···
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <div
+                                                class="mu-status gray"
+                                                style="margin: 0 auto"
+                                            >
+                                                –
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <div
+                                                class="mu-status gray"
+                                                style="margin: 0 auto"
+                                            >
+                                                –
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Schluss formulieren</td>
+                                        <td style="text-align: center">
+                                            <div
+                                                class="mu-status gray"
+                                                style="margin: 0 auto"
+                                            >
+                                                –
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <div
+                                                class="mu-status gray"
+                                                style="margin: 0 auto"
+                                            >
+                                                –
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <div
+                                                class="mu-status gray"
+                                                style="margin: 0 auto"
+                                            >
+                                                –
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="callout tip">
+                        <div class="callout-icon">🔴</div>
+                        <p>
+                            Die Fortschrittsanzeige aktualisiert sich in
+                            <strong>Echtzeit</strong> – du musst die Seite nicht
+                            manuell neu laden.
+                        </p>
+                    </div>
+
+                    <hr class="section-divider" />
+                    <h2>Fortschritt aus Lernenden-Sicht</h2>
+                    <p>
+                        Lernende sehen ihren eigenen Fortschritt direkt in der
+                        Kursübersicht als Fortschrittsbalken sowie mit farbigen
+                        Statussymbolen neben jeder Lerneinheit.
+                    </p>
+
+                    <button
+                        class="next-page-card"
+                        onclick="showPane('progress-task')"
+                    >
+                        <div>
+                            <div class="next-page-card-label">
+                                Nächste Seite
+                            </div>
+                            <div class="next-page-card-title">
+                                Fortschritt – Aufgabenebene
+                            </div>
+                        </div>
+                        <div class="next-page-card-arrow">→</div>
+                    </button>
+                </div>
+
+                <!-- ╔═══════════════════════════════════════════════════════╗ -->
+                <!-- ║  FORTSCHRITT – AUFGABENEBENE                          ║ -->
+                <!-- ╚═══════════════════════════════════════════════════════╝ -->
+                <div class="content-pane" id="pane-progress-task">
+                    <div class="breadcrumb">Fortschritt</div>
+                    <h1>Fortschritt – <em>Aufgabenebene</em></h1>
+                    <p class="page-intro">
+                        Durch Klick auf eine einzelne Aufgabe in der
+                        Fortschrittsübersicht öffnet sich die Detailansicht auf
+                        Aufgabenebene.
+                    </p>
+
+                    <h2>Detailansicht öffnen</h2>
+                    <ol class="steps">
+                        <li>
+                            Öffne den Kurs und klicke auf
+                            <strong>„Fortschritt anzeigen"</strong>.
+                        </li>
+                        <li>
+                            Klicke in der Tabelle auf den
+                            <strong>Namen einer Aufgabe</strong>.
+                        </li>
+                        <li>
+                            Du siehst alle eingeschriebenen Lernenden mit ihrem
+                            Status für diese Aufgabe.
+                        </li>
+                        <li>
+                            Bei Lernenden mit Einreichungen erscheint ein grüner
+                            <strong>„Anzeigen"</strong>-Button.
+                        </li>
+                    </ol>
+
+                    <h2>Statusanzeige</h2>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div
+                                class="legend-dot"
+                                style="background: #10b981; color: #fff"
+                            >
+                                ✓
+                            </div>
+                            <span>Abgeschlossen</span>
+                        </div>
+                        <div class="legend-item">
+                            <div
+                                class="legend-dot"
+                                style="
+                                    background: #0ea5e9;
+                                    color: #fff;
+                                    font-size: 10px;
+                                "
+                            >
+                                ···
+                            </div>
+                            <span>In Bearbeitung</span>
+                        </div>
+                        <div class="legend-item">
+                            <div
+                                class="legend-dot"
+                                style="background: #d6d3d1; color: #78716c"
+                            >
+                                –
+                            </div>
+                            <span>Nicht begonnen</span>
+                        </div>
+                    </div>
+
+                    <!-- MOCKUP: Fortschritt Aufgabenebene -->
+                    <div class="mockup">
+                        <div class="mockup-bar">
+                            <div class="mockup-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="mockup-label"
+                                >Mockup · Fortschritt auf Aufgabenebene</span
+                            >
+                        </div>
+                        <div
+                            class="mockup-body"
+                            style="padding: 0; overflow-x: auto"
+                        >
+                            <table class="mu-table">
+                                <thead>
+                                    <tr>
+                                        <th style="min-width: 100px">–</th>
+                                        <th style="text-align: center">
+                                            <div
+                                                style="
+                                                    display: flex;
+                                                    flex-direction: column;
+                                                    align-items: center;
+                                                    gap: 3px;
+                                                "
+                                            >
+                                                <div
+                                                    class="mu-avatar"
+                                                    style="
+                                                        margin: 0 auto;
+                                                        width: 26px;
+                                                        height: 26px;
+                                                        font-size: 10px;
+                                                    "
+                                                >
+                                                    JM
+                                                </div>
+                                                <span>jonas.m</span>
+                                            </div>
+                                        </th>
+                                        <th style="text-align: center">
+                                            <div
+                                                style="
+                                                    display: flex;
+                                                    flex-direction: column;
+                                                    align-items: center;
+                                                    gap: 3px;
+                                                "
+                                            >
+                                                <div
+                                                    class="mu-avatar"
+                                                    style="
+                                                        margin: 0 auto;
+                                                        width: 26px;
+                                                        height: 26px;
+                                                        font-size: 10px;
+                                                    "
+                                                >
+                                                    AL
+                                                </div>
+                                                <span>anna.l</span>
+                                            </div>
+                                        </th>
+                                        <th style="text-align: center">
+                                            <div
+                                                style="
+                                                    display: flex;
+                                                    flex-direction: column;
+                                                    align-items: center;
+                                                    gap: 3px;
+                                                "
+                                            >
+                                                <div
+                                                    class="mu-avatar"
+                                                    style="
+                                                        margin: 0 auto;
+                                                        width: 26px;
+                                                        height: 26px;
+                                                        font-size: 10px;
+                                                    "
+                                                >
+                                                    TK
+                                                </div>
+                                                <span>tim.k</span>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Fortschritt</td>
+                                        <td style="text-align: center">
+                                            <div
+                                                class="mu-status green"
+                                                style="margin: 0 auto"
+                                            >
+                                                ✓
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <div
+                                                class="mu-status green"
+                                                style="margin: 0 auto"
+                                            >
+                                                ✓
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <div
+                                                class="mu-status blue"
+                                                style="margin: 0 auto"
+                                            >
+                                                ···
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Antworten</td>
+                                        <td style="text-align: center">
+                                            <div
+                                                class="mu-btn success"
+                                                style="
+                                                    font-size: 11px;
+                                                    margin: 0 auto;
+                                                    width: fit-content;
+                                                "
+                                            >
+                                                📄 Anzeigen
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <div
+                                                class="mu-btn success"
+                                                style="
+                                                    font-size: 11px;
+                                                    margin: 0 auto;
+                                                    width: fit-content;
+                                                "
+                                            >
+                                                📄 Anzeigen
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center">
+                                            <span
+                                                style="
+                                                    font-size: 12px;
+                                                    color: #a8a29e;
+                                                "
+                                                >–</span
+                                            >
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <hr class="section-divider" />
+                    <h2>Einreichungen einsehen</h2>
+                    <p>
+                        Klicke auf <strong>„Anzeigen"</strong> neben einem
+                        Lernenden, um dessen Tally-Formular-Antworten für diese
+                        Aufgabe einzusehen.
+                    </p>
+
+                    <div class="callout info">
+                        <div class="callout-icon">💬</div>
+                        <p>
+                            Über die Einreichungsansicht kannst du auch direkt
+                            <strong>Feedback</strong> hinterlassen, das der/die
+                            Lernende anschliessend in seinem/ihrem Profil sieht.
+                        </p>
+                    </div>
+
+                    <!-- MOCKUP: Einreichungsdetail -->
+                    <div class="mockup">
+                        <div class="mockup-bar">
+                            <div class="mockup-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="mockup-label"
+                                >Mockup · Einreichungsdetail</span
+                            >
+                        </div>
+                        <div class="mockup-body">
+                            <div
+                                style="
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                    margin-bottom: 12px;
+                                "
+                            >
+                                <div class="mu-avatar">JM</div>
+                                <div>
+                                    <div
+                                        style="
+                                            font-size: 13px;
+                                            font-weight: 600;
+                                        "
+                                    >
+                                        Jonas Müller
+                                    </div>
+                                    <div
+                                        style="font-size: 11px; color: #a8a29e"
+                                    >
+                                        Einleitung schreiben · eingereicht vor 2
+                                        Stunden
+                                    </div>
+                                </div>
+                                <span
+                                    class="mu-badge green"
+                                    style="margin-left: auto"
+                                    >✓ Abgeschlossen</span
+                                >
+                            </div>
+                            <hr class="mu-divider" />
+                            <div
+                                style="
+                                    font-size: 12px;
+                                    font-weight: 600;
+                                    color: #57534e;
+                                    margin-bottom: 6px;
+                                "
+                            >
+                                Antworten
+                            </div>
+                            <div
+                                style="
+                                    font-size: 13px;
+                                    color: #44403c;
+                                    background: #fafaf9;
+                                    border: 1px solid #e7e5e4;
+                                    border-radius: 7px;
+                                    padding: 10px 12px;
+                                    margin-bottom: 10px;
+                                "
+                            >
+                                „Die Geschichte beginnt an einem regnerischen
+                                Montag..."
+                            </div>
+                            <hr class="mu-divider" />
+                            <div
+                                style="
+                                    font-size: 12px;
+                                    font-weight: 600;
+                                    color: #57534e;
+                                    margin-bottom: 6px;
+                                "
+                            >
+                                Feedback hinterlassen
+                            </div>
+                            <div
+                                class="mu-input"
+                                style="
+                                    height: 56px;
+                                    display: flex;
+                                    align-items: flex-start;
+                                    padding-top: 8px;
+                                    color: #a8a29e;
+                                "
+                            >
+                                Feedback eingeben...
+                            </div>
+                            <div
+                                class="mu-row"
+                                style="
+                                    justify-content: flex-end;
+                                    margin-top: 8px;
+                                "
+                            >
+                                <div class="mu-btn primary">
+                                    Feedback speichern
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <!-- /layout -->
+
+        <button
+            id="back-to-top"
+            onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+            title="Nach oben"
+        >
+            ↑
+        </button>
+
+        <script>
+            function showPane(paneId) {
+                document
+                    .querySelectorAll(".content-pane")
+                    .forEach(function (p) {
+                        p.classList.remove("active");
+                    });
+                var target = document.getElementById("pane-" + paneId);
+                if (target) target.classList.add("active");
+
+                document.querySelectorAll(".nav-item").forEach(function (item) {
+                    item.classList.remove("active");
+                    var oc = item.getAttribute("onclick") || "";
+                    if (oc.indexOf("'" + paneId + "'") !== -1)
+                        item.classList.add("active");
+                });
+
+                window.scrollTo({ top: 0, behavior: "instant" });
+                if (window.innerWidth <= 680) closeSidebar();
+            }
+
+            function toggleSidebar() {
+                document.getElementById("sidebar").classList.toggle("open");
+                document
+                    .getElementById("sidebar-overlay")
+                    .classList.toggle("open");
+            }
+
+            function closeSidebar() {
+                document.getElementById("sidebar").classList.remove("open");
+                document
+                    .getElementById("sidebar-overlay")
+                    .classList.remove("open");
+            }
+
+            window.addEventListener("scroll", function () {
+                var scrollTop =
+                    window.scrollY || document.documentElement.scrollTop;
+                var docHeight =
+                    document.documentElement.scrollHeight - window.innerHeight;
+                var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                document.getElementById("progress-bar").style.width = pct + "%";
+                var btn = document.getElementById("back-to-top");
+                if (scrollTop > 300) btn.classList.add("visible");
+                else btn.classList.remove("visible");
+            });
+
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Escape") closeSidebar();
+            });
+        </script>
+    </body>
+</html>
