@@ -4,6 +4,10 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>LearningLine – Wiki</title>
+        <meta
+            name="description"
+            content="LearningLine Wiki – Anleitung für Login, Registrierung, Kursdetails und Fortschrittsansichten."
+        />
         <style>
             *,
             *::before,
@@ -43,6 +47,12 @@
                 --red-100: #fee2e2;
                 --red-500: #ef4444;
                 --red-600: #dc2626;
+                /* violet palette – used in "Lernende verwalten" mockup card */
+                --violet-100: #ede9fe;
+                --violet-200: #ddd6fe;
+                --violet-50: #f5f3ff;
+                --violet-700: #6d28d9;
+                --violet-600: #7c3aed;
                 --sidebar-width: 260px;
                 --header-height: 56px;
             }
@@ -81,7 +91,6 @@
                 gap: 10px;
                 text-decoration: none;
             }
-
             .header-name {
                 font-size: 16px;
                 font-weight: 700;
@@ -90,6 +99,13 @@
             }
             .header-name span {
                 color: var(--sky-500);
+            }
+            .header-right {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 13px;
+                color: var(--stone-400);
             }
             .btn-menu {
                 display: none;
@@ -457,7 +473,6 @@
                 background: var(--emerald-500);
                 color: #fff;
             }
-
             .mu-checkbox {
                 width: 18px;
                 height: 18px;
@@ -562,7 +577,6 @@
                 background: var(--stone-100);
                 color: var(--stone-500);
             }
-
             .mu-table {
                 width: 100%;
                 border-collapse: collapse;
@@ -623,14 +637,20 @@
                 border-radius: 50%;
                 font-size: 16px;
                 cursor: pointer;
-                display: none;
+                display: flex;
                 align-items: center;
                 justify-content: center;
                 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
                 z-index: 99;
+                visibility: hidden;
+                opacity: 0;
+                transition:
+                    opacity 0.2s,
+                    visibility 0.2s;
             }
             #back-to-top.visible {
-                display: flex;
+                visibility: visible;
+                opacity: 1;
             }
 
             /* ─── Sidebar overlay (mobile) ───────────────────── */
@@ -680,6 +700,7 @@
                     padding: 24px 20px;
                 }
             }
+
             /* ─── Next page card ─────────────────────────────── */
             .next-page-card {
                 display: flex;
@@ -725,7 +746,12 @@
     </head>
     <body>
         <!-- ══════════════════ APP SHELL ═══════════════════════════════ -->
-        <div id="progress-bar" style="width: 0%"></div>
+        <div
+            id="progress-bar"
+            style="width: 0%"
+            role="progressbar"
+            aria-hidden="true"
+        ></div>
 
         <header class="top-header">
             <div style="display: flex; align-items: center">
@@ -733,7 +759,9 @@
                     class="btn-menu"
                     id="btn-menu"
                     onclick="toggleSidebar()"
-                    aria-label="Menü"
+                    aria-label="Navigation öffnen"
+                    aria-expanded="false"
+                    aria-controls="sidebar"
                 >
                     <svg
                         width="20"
@@ -742,6 +770,7 @@
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                         stroke-width="2"
+                        aria-hidden="true"
                     >
                         <path
                             stroke-linecap="round"
@@ -756,13 +785,14 @@
                         height="32"
                         viewBox="190 60 370 220"
                         xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
                     >
                         <g transform="translate(190, 60)">
                             <path
                                 d="M 55 55 L 55 130 Q 55 195 120 195 Q 185 195 185 130 L 185 120 Q 185 55 250 55 Q 315 55 315 120 L 315 195"
                                 style="
                                     fill: none;
-                                    stroke: #0ea5e9;
+                                    stroke: var(--sky-500);
                                     stroke-width: 52px;
                                     stroke-linecap: round;
                                     stroke-linejoin: round;
@@ -772,13 +802,13 @@
                                 cx="55"
                                 cy="55"
                                 r="34"
-                                style="fill: #0ea5e9"
+                                style="fill: var(--sky-500)"
                             />
                             <circle
                                 cx="315"
                                 cy="195"
                                 r="34"
-                                style="fill: #0ea5e9"
+                                style="fill: var(--sky-500)"
                             />
                         </g>
                     </svg>
@@ -796,21 +826,31 @@
                     </span>
                 </a>
             </div>
+            <div class="header-right" aria-label="Version">
+                <span style="font-size: 11px; color: var(--stone-300)"
+                    >v1.0</span
+                >
+            </div>
         </header>
 
         <div
             class="sidebar-overlay"
             id="sidebar-overlay"
             onclick="toggleSidebar()"
+            aria-hidden="true"
         ></div>
 
         <div class="layout">
             <!-- ═══ SIDEBAR ═══════════════════════════════════════════════ -->
-            <nav class="sidebar" id="sidebar">
+            <nav class="sidebar" id="sidebar" aria-label="Seitennavigation">
                 <div class="sidebar-section-label" style="padding-top: 4px">
                     Zugang
                 </div>
-                <button class="nav-item active" onclick="showPane('login')">
+                <button
+                    class="nav-item active"
+                    onclick="showPane('login')"
+                    aria-current="page"
+                >
                     <span class="nav-dot"></span>Login
                 </button>
                 <button class="nav-item" onclick="showPane('register')">
@@ -830,7 +870,7 @@
             </nav>
 
             <!-- ═══ MAIN ═══════════════════════════════════════════════════ -->
-            <main class="main" id="main-content">
+            <main class="main" id="main-content" aria-label="Hauptinhalt">
                 <!-- ╔═══════════════════════════════════════════════════════╗ -->
                 <!-- ║  LOGIN                                                ║ -->
                 <!-- ╚═══════════════════════════════════════════════════════╝ -->
@@ -886,7 +926,7 @@
                     </div>
 
                     <!-- MOCKUP: Login-Formular -->
-                    <div class="mockup">
+                    <div class="mockup" aria-hidden="true" role="presentation">
                         <div class="mockup-bar">
                             <div class="mockup-dots">
                                 <span></span><span></span><span></span>
@@ -914,7 +954,7 @@
                     </div>
 
                     <!-- MOCKUP: Demo-Banner nach Absenden -->
-                    <div class="mockup">
+                    <div class="mockup" aria-hidden="true" role="presentation">
                         <div class="mockup-bar">
                             <div class="mockup-dots">
                                 <span></span><span></span><span></span>
@@ -938,8 +978,8 @@
                                 style="
                                     margin-top: 10px;
                                     padding: 12px 14px;
-                                    background: #ecfdf5;
-                                    border: 1px solid #a7f3d0;
+                                    background: var(--emerald-50);
+                                    border: 1px solid var(--emerald-200);
                                     border-radius: 8px;
                                     display: flex;
                                     gap: 10px;
@@ -952,7 +992,7 @@
                                         style="
                                             font-size: 13px;
                                             font-weight: 600;
-                                            color: #047857;
+                                            color: var(--emerald-700);
                                         "
                                     >
                                         Demo – E-Mail abgefangen
@@ -960,7 +1000,7 @@
                                     <div
                                         style="
                                             font-size: 12px;
-                                            color: #059669;
+                                            color: var(--emerald-600);
                                             margin-top: 2px;
                                         "
                                     >
@@ -979,7 +1019,7 @@
                     </div>
 
                     <!-- MOCKUP: Demo-Mailbox -->
-                    <div class="mockup">
+                    <div class="mockup" aria-hidden="true" role="presentation">
                         <div class="mockup-bar">
                             <div class="mockup-dots">
                                 <span></span><span></span><span></span>
@@ -987,7 +1027,7 @@
                             <span
                                 style="
                                     font-size: 11px;
-                                    color: #a8a29e;
+                                    color: var(--stone-400);
                                     flex: 1;
                                     text-align: center;
                                     font-family: monospace;
@@ -1002,8 +1042,8 @@
                             <div
                                 class="mu-card"
                                 style="
-                                    background: #f0f9ff;
-                                    border-color: #bae6fd;
+                                    background: var(--sky-50);
+                                    border-color: var(--sky-200);
                                 "
                             >
                                 <div class="mu-icon">✉️</div>
@@ -1012,13 +1052,16 @@
                                         style="
                                             font-size: 13px;
                                             font-weight: 600;
-                                            color: #0369a1;
+                                            color: var(--sky-700);
                                         "
                                     >
                                         Dein LearningLine Magic Link
                                     </div>
                                     <div
-                                        style="font-size: 12px; color: #0ea5e9"
+                                        style="
+                                            font-size: 12px;
+                                            color: var(--sky-500);
+                                        "
                                     >
                                         An: maria@schule.ch · gerade eben
                                     </div>
@@ -1028,15 +1071,15 @@
                                 style="
                                     margin-top: 12px;
                                     padding: 12px 14px;
-                                    background: #fafaf9;
-                                    border: 1px solid #e7e5e4;
+                                    background: var(--stone-50);
+                                    border: 1px solid var(--stone-200);
                                     border-radius: 8px;
                                 "
                             >
                                 <div
                                     style="
                                         font-size: 12px;
-                                        color: #57534e;
+                                        color: var(--stone-600);
                                         margin-bottom: 10px;
                                     "
                                 >
@@ -1121,7 +1164,7 @@
                     </div>
 
                     <!-- MOCKUP: Registrierung Lehrperson -->
-                    <div class="mockup">
+                    <div class="mockup" aria-hidden="true" role="presentation">
                         <div class="mockup-bar">
                             <div class="mockup-dots">
                                 <span></span><span></span><span></span>
@@ -1151,7 +1194,7 @@
                                 <span
                                     style="
                                         font-size: 13px;
-                                        color: #1c1917;
+                                        color: var(--stone-900);
                                         font-weight: 600;
                                     "
                                     >Ich bin eine Lehrperson</span
@@ -1226,7 +1269,7 @@
                     </div>
 
                     <!-- MOCKUP: Registrierung Lernende/r -->
-                    <div class="mockup">
+                    <div class="mockup" aria-hidden="true" role="presentation">
                         <div class="mockup-bar">
                             <div class="mockup-dots">
                                 <span></span><span></span><span></span>
@@ -1254,7 +1297,10 @@
                                 <span class="mu-label">Klasse</span>
                                 <div
                                     class="mu-input"
-                                    style="background: #f5f5f4; color: #78716c"
+                                    style="
+                                        background: var(--stone-100);
+                                        color: var(--stone-500);
+                                    "
                                 >
                                     3a &nbsp;<span class="mu-badge green"
                                         >automatisch ausgefüllt</span
@@ -1264,7 +1310,11 @@
                             <hr class="mu-divider" />
                             <div class="mu-row">
                                 <div class="mu-checkbox unchecked">✓</div>
-                                <span style="font-size: 13px; color: #78716c"
+                                <span
+                                    style="
+                                        font-size: 13px;
+                                        color: var(--stone-500);
+                                    "
                                     >Ich bin eine Lehrperson</span
                                 >
                             </div>
@@ -1323,7 +1373,7 @@
                     </ul>
 
                     <!-- MOCKUP: Kursdetail Lehrperson -->
-                    <div class="mockup">
+                    <div class="mockup" aria-hidden="true" role="presentation">
                         <div class="mockup-bar">
                             <div class="mockup-dots">
                                 <span></span><span></span><span></span>
@@ -1337,7 +1387,7 @@
                                 style="
                                     font-size: 15px;
                                     font-weight: 700;
-                                    color: #1c1917;
+                                    color: var(--stone-900);
                                     margin-bottom: 4px;
                                 "
                             >
@@ -1346,7 +1396,7 @@
                             <div
                                 style="
                                     font-size: 12px;
-                                    color: #a8a29e;
+                                    color: var(--stone-400);
                                     margin-bottom: 14px;
                                 "
                             >
@@ -1362,10 +1412,10 @@
                             >
                                 <div
                                     style="
-                                        border: 1.5px solid #a7f3d0;
+                                        border: 1.5px solid var(--emerald-200);
                                         border-radius: 8px;
                                         padding: 12px;
-                                        background: #ecfdf5;
+                                        background: var(--emerald-50);
                                         display: flex;
                                         align-items: center;
                                         gap: 8px;
@@ -1377,7 +1427,7 @@
                                             style="
                                                 font-size: 12px;
                                                 font-weight: 600;
-                                                color: #047857;
+                                                color: var(--emerald-700);
                                             "
                                         >
                                             Fortschritt anzeigen
@@ -1385,7 +1435,7 @@
                                         <div
                                             style="
                                                 font-size: 11px;
-                                                color: #059669;
+                                                color: var(--emerald-600);
                                             "
                                         >
                                             Lernenden-Übersicht
@@ -1394,10 +1444,10 @@
                                 </div>
                                 <div
                                     style="
-                                        border: 1.5px solid #ddd6fe;
+                                        border: 1.5px solid var(--violet-200);
                                         border-radius: 8px;
                                         padding: 12px;
-                                        background: #f5f3ff;
+                                        background: var(--violet-50);
                                         display: flex;
                                         align-items: center;
                                         gap: 8px;
@@ -1409,7 +1459,7 @@
                                             style="
                                                 font-size: 12px;
                                                 font-weight: 600;
-                                                color: #6d28d9;
+                                                color: var(--violet-700);
                                             "
                                         >
                                             Lernende verwalten
@@ -1417,7 +1467,7 @@
                                         <div
                                             style="
                                                 font-size: 11px;
-                                                color: #7c3aed;
+                                                color: var(--violet-600);
                                             "
                                         >
                                             Ein-/Ausschreiben
@@ -1450,13 +1500,13 @@
                             <div
                                 class="mu-card"
                                 style="
-                                    background: #fff7ed;
-                                    border-color: #fed7aa;
+                                    background: var(--amber-50);
+                                    border-color: var(--amber-100);
                                 "
                             >
                                 <div
                                     class="mu-icon"
-                                    style="background: #fee2e2"
+                                    style="background: var(--red-100)"
                                 >
                                     📋
                                 </div>
@@ -1524,7 +1574,7 @@
                     </ul>
 
                     <!-- MOCKUP: Kursdetail Lernende -->
-                    <div class="mockup">
+                    <div class="mockup" aria-hidden="true" role="presentation">
                         <div class="mockup-bar">
                             <div class="mockup-dots">
                                 <span></span><span></span><span></span>
@@ -1538,7 +1588,7 @@
                                 style="
                                     font-size: 15px;
                                     font-weight: 700;
-                                    color: #1c1917;
+                                    color: var(--stone-900);
                                     margin-bottom: 4px;
                                 "
                             >
@@ -1547,7 +1597,7 @@
                             <div
                                 style="
                                     font-size: 12px;
-                                    color: #a8a29e;
+                                    color: var(--stone-400);
                                     margin-bottom: 6px;
                                 "
                             >
@@ -1559,7 +1609,7 @@
                                         display: flex;
                                         justify-content: space-between;
                                         font-size: 12px;
-                                        color: #78716c;
+                                        color: var(--stone-500);
                                         margin-bottom: 4px;
                                     "
                                 >
@@ -1576,8 +1626,8 @@
                             <div
                                 class="mu-card"
                                 style="
-                                    background: #ecfdf5;
-                                    border-color: #a7f3d0;
+                                    background: var(--emerald-50);
+                                    border-color: var(--emerald-200);
                                 "
                             >
                                 <div
@@ -1605,8 +1655,8 @@
                             <div
                                 class="mu-card"
                                 style="
-                                    background: #ecfdf5;
-                                    border-color: #a7f3d0;
+                                    background: var(--emerald-50);
+                                    border-color: var(--emerald-200);
                                 "
                             >
                                 <div
@@ -1657,8 +1707,8 @@
                             <div
                                 class="mu-card"
                                 style="
-                                    background: #fafaf9;
-                                    border-color: #e7e5e4;
+                                    background: var(--stone-50);
+                                    border-color: var(--stone-200);
                                     opacity: 0.7;
                                 "
                             >
@@ -1672,20 +1722,24 @@
                                     style="
                                         flex: 1;
                                         font-size: 13px;
-                                        color: #a8a29e;
+                                        color: var(--stone-400);
                                     "
                                 >
                                     Einheit 4 – Überarbeitung
                                 </div>
-                                <span style="font-size: 11px; color: #a8a29e"
+                                <span
+                                    style="
+                                        font-size: 11px;
+                                        color: var(--stone-400);
+                                    "
                                     >Bald verfügbar</span
                                 >
                             </div>
                             <div
                                 class="mu-card"
                                 style="
-                                    background: #fafaf9;
-                                    border-color: #e7e5e4;
+                                    background: var(--stone-50);
+                                    border-color: var(--stone-200);
                                     opacity: 0.7;
                                 "
                             >
@@ -1699,12 +1753,16 @@
                                     style="
                                         flex: 1;
                                         font-size: 13px;
-                                        color: #a8a29e;
+                                        color: var(--stone-400);
                                     "
                                 >
                                     Einheit 5 – Abschluss
                                 </div>
-                                <span style="font-size: 11px; color: #a8a29e"
+                                <span
+                                    style="
+                                        font-size: 11px;
+                                        color: var(--stone-400);
+                                    "
                                     >Bald verfügbar</span
                                 >
                             </div>
@@ -1770,7 +1828,10 @@
                         <div class="legend-item">
                             <div
                                 class="legend-dot"
-                                style="background: #10b981; color: #fff"
+                                style="
+                                    background: var(--emerald-500);
+                                    color: #fff;
+                                "
                             >
                                 ✓
                             </div>
@@ -1780,7 +1841,7 @@
                             <div
                                 class="legend-dot"
                                 style="
-                                    background: #0ea5e9;
+                                    background: var(--sky-500);
                                     color: #fff;
                                     font-size: 10px;
                                 "
@@ -1792,7 +1853,10 @@
                         <div class="legend-item">
                             <div
                                 class="legend-dot"
-                                style="background: #d6d3d1; color: #78716c"
+                                style="
+                                    background: var(--stone-300);
+                                    color: var(--stone-500);
+                                "
                             >
                                 –
                             </div>
@@ -1801,7 +1865,7 @@
                     </div>
 
                     <!-- MOCKUP: Fortschritts-Tabelle Kursebene -->
-                    <div class="mockup">
+                    <div class="mockup" aria-hidden="true" role="presentation">
                         <div class="mockup-bar">
                             <div class="mockup-dots">
                                 <span></span><span></span><span></span>
@@ -2045,7 +2109,10 @@
                         <div class="legend-item">
                             <div
                                 class="legend-dot"
-                                style="background: #10b981; color: #fff"
+                                style="
+                                    background: var(--emerald-500);
+                                    color: #fff;
+                                "
                             >
                                 ✓
                             </div>
@@ -2055,7 +2122,7 @@
                             <div
                                 class="legend-dot"
                                 style="
-                                    background: #0ea5e9;
+                                    background: var(--sky-500);
                                     color: #fff;
                                     font-size: 10px;
                                 "
@@ -2067,7 +2134,10 @@
                         <div class="legend-item">
                             <div
                                 class="legend-dot"
-                                style="background: #d6d3d1; color: #78716c"
+                                style="
+                                    background: var(--stone-300);
+                                    color: var(--stone-500);
+                                "
                             >
                                 –
                             </div>
@@ -2076,7 +2146,7 @@
                     </div>
 
                     <!-- MOCKUP: Fortschritt Aufgabenebene -->
-                    <div class="mockup">
+                    <div class="mockup" aria-hidden="true" role="presentation">
                         <div class="mockup-bar">
                             <div class="mockup-dots">
                                 <span></span><span></span><span></span>
@@ -2224,7 +2294,7 @@
                                             <span
                                                 style="
                                                     font-size: 12px;
-                                                    color: #a8a29e;
+                                                    color: var(--stone-400);
                                                 "
                                                 >–</span
                                             >
@@ -2253,7 +2323,7 @@
                     </div>
 
                     <!-- MOCKUP: Einreichungsdetail -->
-                    <div class="mockup">
+                    <div class="mockup" aria-hidden="true" role="presentation">
                         <div class="mockup-bar">
                             <div class="mockup-dots">
                                 <span></span><span></span><span></span>
@@ -2282,7 +2352,10 @@
                                         Jonas Müller
                                     </div>
                                     <div
-                                        style="font-size: 11px; color: #a8a29e"
+                                        style="
+                                            font-size: 11px;
+                                            color: var(--stone-400);
+                                        "
                                     >
                                         Einleitung schreiben · eingereicht vor 2
                                         Stunden
@@ -2299,7 +2372,7 @@
                                 style="
                                     font-size: 12px;
                                     font-weight: 600;
-                                    color: #57534e;
+                                    color: var(--stone-600);
                                     margin-bottom: 6px;
                                 "
                             >
@@ -2308,9 +2381,9 @@
                             <div
                                 style="
                                     font-size: 13px;
-                                    color: #44403c;
-                                    background: #fafaf9;
-                                    border: 1px solid #e7e5e4;
+                                    color: var(--stone-700);
+                                    background: var(--stone-50);
+                                    border: 1px solid var(--stone-200);
                                     border-radius: 7px;
                                     padding: 10px 12px;
                                     margin-bottom: 10px;
@@ -2324,7 +2397,7 @@
                                 style="
                                     font-size: 12px;
                                     font-weight: 600;
-                                    color: #57534e;
+                                    color: var(--stone-600);
                                     margin-bottom: 6px;
                                 "
                             >
@@ -2337,7 +2410,7 @@
                                     display: flex;
                                     align-items: flex-start;
                                     padding-top: 8px;
-                                    color: #a8a29e;
+                                    color: var(--stone-400);
                                 "
                             >
                                 Feedback eingeben...
@@ -2355,6 +2428,19 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Back-to-start card on last pane -->
+                    <button class="next-page-card" onclick="showPane('login')">
+                        <div>
+                            <div class="next-page-card-label">
+                                Zurück zum Anfang
+                            </div>
+                            <div class="next-page-card-title">
+                                Login mit Magic Link
+                            </div>
+                        </div>
+                        <div class="next-page-card-arrow">↩</div>
+                    </button>
                 </div>
             </main>
         </div>
@@ -2364,59 +2450,86 @@
             id="back-to-top"
             onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
             title="Nach oben"
+            aria-label="Nach oben scrollen"
         >
             ↑
         </button>
 
         <script>
-            function showPane(paneId) {
-                document
-                    .querySelectorAll(".content-pane")
-                    .forEach(function (p) {
-                        p.classList.remove("active");
-                    });
-                var target = document.getElementById("pane-" + paneId);
-                if (target) target.classList.add("active");
+            document.addEventListener("DOMContentLoaded", function () {
+                function showPane(paneId) {
+                    document
+                        .querySelectorAll(".content-pane")
+                        .forEach(function (p) {
+                            p.classList.remove("active");
+                        });
+                    var target = document.getElementById("pane-" + paneId);
+                    if (target) target.classList.add("active");
 
-                document.querySelectorAll(".nav-item").forEach(function (item) {
-                    item.classList.remove("active");
-                    var oc = item.getAttribute("onclick") || "";
-                    if (oc.indexOf("'" + paneId + "'") !== -1)
-                        item.classList.add("active");
+                    document
+                        .querySelectorAll(".nav-item")
+                        .forEach(function (item) {
+                            item.classList.remove("active");
+                            item.removeAttribute("aria-current");
+                            var oc = item.getAttribute("onclick") || "";
+                            if (oc.indexOf("'" + paneId + "'") !== -1) {
+                                item.classList.add("active");
+                                item.setAttribute("aria-current", "page");
+                            }
+                        });
+
+                    window.scrollTo({ top: 0, behavior: "auto" });
+                    if (window.innerWidth <= 680) closeSidebar();
+                }
+
+                // expose to inline onclick handlers
+                window.showPane = showPane;
+
+                function toggleSidebar() {
+                    var sidebar = document.getElementById("sidebar");
+                    var overlay = document.getElementById("sidebar-overlay");
+                    var btn = document.getElementById("btn-menu");
+                    var isOpen = sidebar.classList.toggle("open");
+                    overlay.classList.toggle("open");
+                    btn.setAttribute(
+                        "aria-label",
+                        isOpen ? "Navigation schliessen" : "Navigation öffnen",
+                    );
+                    btn.setAttribute(
+                        "aria-expanded",
+                        isOpen ? "true" : "false",
+                    );
+                }
+                window.toggleSidebar = toggleSidebar;
+
+                function closeSidebar() {
+                    var sidebar = document.getElementById("sidebar");
+                    var overlay = document.getElementById("sidebar-overlay");
+                    var btn = document.getElementById("btn-menu");
+                    sidebar.classList.remove("open");
+                    overlay.classList.remove("open");
+                    btn.setAttribute("aria-label", "Navigation öffnen");
+                    btn.setAttribute("aria-expanded", "false");
+                }
+                window.closeSidebar = closeSidebar;
+
+                window.addEventListener("scroll", function () {
+                    var scrollTop =
+                        window.scrollY || document.documentElement.scrollTop;
+                    var docHeight =
+                        document.documentElement.scrollHeight -
+                        window.innerHeight;
+                    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                    document.getElementById("progress-bar").style.width =
+                        pct + "%";
+                    var btn = document.getElementById("back-to-top");
+                    if (scrollTop > 300) btn.classList.add("visible");
+                    else btn.classList.remove("visible");
                 });
 
-                window.scrollTo({ top: 0, behavior: "instant" });
-                if (window.innerWidth <= 680) closeSidebar();
-            }
-
-            function toggleSidebar() {
-                document.getElementById("sidebar").classList.toggle("open");
-                document
-                    .getElementById("sidebar-overlay")
-                    .classList.toggle("open");
-            }
-
-            function closeSidebar() {
-                document.getElementById("sidebar").classList.remove("open");
-                document
-                    .getElementById("sidebar-overlay")
-                    .classList.remove("open");
-            }
-
-            window.addEventListener("scroll", function () {
-                var scrollTop =
-                    window.scrollY || document.documentElement.scrollTop;
-                var docHeight =
-                    document.documentElement.scrollHeight - window.innerHeight;
-                var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-                document.getElementById("progress-bar").style.width = pct + "%";
-                var btn = document.getElementById("back-to-top");
-                if (scrollTop > 300) btn.classList.add("visible");
-                else btn.classList.remove("visible");
-            });
-
-            document.addEventListener("keydown", function (e) {
-                if (e.key === "Escape") closeSidebar();
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") closeSidebar();
+                });
             });
         </script>
     </body>
